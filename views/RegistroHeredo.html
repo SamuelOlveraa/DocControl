@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Se define la codificación de caracteres y la compatibilidad del documento -->
+    <meta charset="UTF-8" />
+    <!-- Configuración para que la página se visualice correctamente en dispositivos móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Se indica a Internet Explorer que use el motor de renderizado más moderno -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Se vincula la hoja de estilos externa para definir el estilo de la página -->
+    <link rel="stylesheet" href="/DocControl/assets/css/estilos.css" />
+  </head>
+  <body>
+    <!-- Contenedor principal de la sección -->
+    <section class="container">
+      <!-- Título de la sección centrado -->
+      <h1 style="text-align: center;">Antecedentes Heredofamiliares</h1>
+      <!-- Formulario que enviará los datos a "RegistroHeredo.php" mediante método POST -->
+      <form action="/DocControl/controllers/RegistroHeredo.php" method="POST" class="form" id="formulario">
+        
+        <!-- Primera columna: Grupo para "Diabetes" -->
+        <div class="column">     
+          <!-- Caja que agrupa la pregunta y las opciones de respuesta -->
+          <div class="genero-box">
+            <label>Diabetes</label>
+            <div class="genero-option">
+              <div class="genero">
+                <!-- Opción "Si" para indicar antecedentes de diabetes en la familia.
+                     Se utiliza el atributo "checked" para establecerla como seleccionada por defecto -->
+                <input type="radio" id="check-si-diabetes" name="DiabetesOpc" value="si" checked />
+                <label for="check-si-diabetes">Si</label>
+              </div>
+              <div class="genero">
+                <!-- Opción "No" para indicar la ausencia de antecedentes de diabetes.
+                     (Nota: Ambos inputs tienen "checked", lo cual puede causar conflicto; se recomienda dejar solo uno seleccionado por defecto) -->
+                <input type="radio" id="check-no-diabetes" name="DiabetesOpc" value="no" checked/>
+                <label for="check-no-diabetes">No</label>
+              </div>
+            </div>
+          </div>
+          <!-- Campo para especificar los familiares con diabetes. 
+               Inicialmente se oculta (display: none) y se mostrará si se selecciona "Si" -->
+          <div class="input-box" id="DiabetesFamilia" style="display: none;">
+            <label>¿Quien?</label>
+            <input type="text" placeholder="Ingrese los familiares" id="DiabetesFamilia" name="DiabetesFamilia" autocomplete="off" />
+          </div>
+        </div>   
+        
+        <!-- Segunda columna: Grupo para "Cancer" -->
+        <div class="column">
+          <div class="genero-box">
+            <label>Cancer</label>
+            <div class="genero-option">
+              <div class="genero">
+                <!-- Opción "Si" para antecedentes de cáncer, marcada por defecto -->
+                <input type="radio" id="check-si-cancer" name="CancerOpc" value="si" checked/>
+                <label for="check-si-cancer">Si</label>
+              </div>
+              <div class="genero">
+                <!-- Opción "No" para indicar ausencia de antecedentes de cáncer, también marcada por defecto -->
+                <input type="radio" id="check-no-cancer" name="CancerOpc" value="no" checked  />
+                <label for="check-no-cancer">No</label>
+              </div>
+            </div>
+          </div>
+          <!-- Campos para especificar los familiares con cáncer y el tipo de cáncer.
+               Se ocultan inicialmente y se muestran solo si se selecciona "Si" -->
+          <div class="input-box" id="CancerFamilia" style="display: none;">
+            <label>¿Quien?</label>
+            <input type="text" placeholder="Ingrese los familiares" id="CancerFamilia" name="CancerFamilia" autocomplete="off" />
+            <input type="text" placeholder="Ingrese el tipo" id="CancerTipo" name="CancerTipo" autocomplete="off" />
+          </div>
+        </div>
+        
+        <!-- Tercera columna: Grupo para "Nefropatas" -->
+        <div class="column">  
+          <div class="genero-box">
+            <label>Nefropatas</label>
+            <div class="genero-option">
+              <div class="genero">
+                <!-- Opción "Si" para antecedentes de enfermedades renales, marcada por defecto -->
+                <input type="radio" id="check-si-Nefropatas" name="NefropatasOpc" value="si" checked/>
+                <label for="check-si-hipertension">Si</label>
+              </div>
+              <div class="genero">
+                <!-- Opción "No" para indicar la ausencia de antecedentes renales, marcada por defecto -->
+                <input type="radio" id="check-no-Nefropatas" name="NefropatasOpc" value="no" checked/>
+                <label for="check-no-Nefropatas">No</label>
+              </div>
+            </div>
+          </div>   
+          <!-- Campo para especificar los familiares con antecedentes renales, oculto por defecto -->
+          <div class="input-box" id="NefropatasFamilia" style="display: none;">
+            <label>¿Quien?</label>
+            <input type="text" placeholder="Ingrese los familiares" id="NefropatasFamilia" name="NefropatasFamilia" autocomplete="off" />
+          </div>
+        </div>
+        
+        <!-- Cuarta columna: Grupo para "Cardiopatas" -->
+        <div class="column">  
+          <div class="genero-box">
+            <label>Cardiopatas</label>
+            <div class="genero-option">
+              <div class="genero">
+                <!-- Opción "Si" para antecedentes de enfermedades cardíacas, marcada por defecto -->
+                <input type="radio" id="check-si-Cardiopatas" name="CardiopatasOpc" value="si" checked />
+                <label for="check-si-Cardiopatas">Si</label>
+              </div>
+              <div class="genero">
+                <!-- Opción "No" para indicar ausencia de antecedentes cardíacos, marcada por defecto -->
+                <input type="radio" id="check-no-Cardiopatas" name="CardiopatasOpc" value="no" checked  />
+                <label for="check-no-Cardiopatas">No</label>
+              </div>
+            </div>
+          </div>   
+          <!-- Campo para especificar familiares con antecedentes cardíacos, oculto inicialmente -->
+          <div class="input-box" id="CardiopatasFamilia" style="display: none;">
+            <label>¿Quien?</label>
+            <input type="text" placeholder="Ingrese los familiares" id="CardiopatasFamilia" name="CardiopatasFamilia" autocomplete="off" />
+          </div>
+        </div>
+        
+        <!-- Quinta columna: Grupo para "Hipertención Arterial" -->
+        <div class="column">  
+          <div class="genero-box">
+            <label>Hipertención Arterial</label>
+            <div class="genero-option">
+              <div class="genero">
+                <!-- Opción "Si" para antecedentes de hipertensión, marcada por defecto -->
+                <input type="radio" id="check-si-hipertension" name="HipertensionOpc" value="si" checked />
+                <label for="check-si-hipertension">Si</label>
+              </div>
+              <div class="genero">
+                <!-- Opción "No" para indicar ausencia de hipertensión, marcada por defecto -->
+                <input type="radio" id="check-no-hipertension" name="HipertensionOpc" value="no" checked />
+                <label for="check-no-hipertension">No</label>
+              </div>
+            </div>
+          </div>   
+          <!-- Campo para especificar familiares con antecedentes de hipertensión, oculto inicialmente -->
+          <div class="input-box" id="HipertensionFamilia" style="display: none;">
+            <label>¿Quien?</label>
+            <input type="text" placeholder="Ingrese los familiares" id="HipertensionFamilia" name="HipertensionFamilia" autocomplete="off" />
+          </div>
+        </div>
+        
+        <!-- Sexta columna: Grupo para "Malformaciones" -->
+        <div class="column">  
+          <div class="genero-box">
+            <label>Malformaciones</label>
+            <div class="genero-option">
+              <div class="genero">
+                <!-- Opción "Si" para antecedentes de malformaciones, marcada por defecto -->
+                <input type="radio" id="check-si-Malformaciones" name="MalformacionesOpc" value="si" checked />
+                <label for="check-si-Malformaciones">Si</label>
+              </div>
+              <div class="genero">
+                <!-- Opción "No" para indicar ausencia de malformaciones, marcada por defecto -->
+                <input type="radio" id="check-no-Malformaciones" name="MalformacionesOpc" value="no" checked />
+                <label for="check-no-Malformaciones">No</label>
+              </div>
+            </div>
+          </div>   
+          <!-- Campos para especificar familiares con malformaciones y el tipo, ocultos por defecto -->
+          <div class="input-box" id="MalformacionesFamilia" style="display: none;">
+            <label>¿Quien?</label>
+            <input type="text" placeholder="Ingrese los familiares" id="MalformacionesFamilia" name="MalformacionesFamilia" autocomplete="off" />
+            <input type="text" placeholder="Ingrese el tipo" id="MalformacionesTipo" name="MalformacionesTipo" autocomplete="off" />
+          </div>
+        </div>
+        
+        <!-- Séptima columna: Grupo para "Otro" (otros antecedentes heredofamiliares) -->
+        <div class="column">  
+          <div class="genero-box">
+            <label>Otro</label>
+            <div class="genero-option">
+              <div class="genero">
+                <!-- Opción "Si" para indicar la existencia de otros antecedentes, marcada por defecto -->
+                <input type="radio" id="check-si-Otro" name="OtroOpc" value="si" checked />
+                <label for="check-si-Malformaciones">Si</label>
+              </div>
+              <div class="genero">
+                <!-- Opción "No" para indicar la ausencia de otros antecedentes, marcada por defecto -->
+                <input type="radio" id="check-no-Otro" name="OtroOpc" value="no" checked />
+                <label for="check-no-Otro">No</label>
+              </div>
+            </div>
+          </div>   
+          <!-- Campos para especificar familiares y tipo de otro antecedente, ocultos inicialmente -->
+          <div class="input-box" id="OtroFamilia" style="display: none;">
+            <label>¿Quien?</label>
+            <input type="text" placeholder="Ingrese los familiares" id="OtroFamilia" name="OtroFamilia" autocomplete="off" />
+            <input type="text" placeholder="Ingrese el tipo" id="OtroTipo" name="OtroTipo" autocomplete="off" />
+          </div>
+        </div>
+        
+        <!-- Botón para enviar el formulario y registrar los datos -->
+        <button type="submit">Registrar</button>
+      </form>
+    </section>
+  </body>
+</html>
+
+<!-- Script para mostrar/ocultar dinámicamente los campos de texto asociados a cada antecedente -->
+<script>
+  // Función que recibe un conjunto de opciones (radio buttons) y el campo asociado
+  // Agrega un listener a cada opción para controlar la visualización del campo
+  function mostrarCampo(opciones, campo) {
+    opciones.forEach((opcion) => {
+      opcion.addEventListener("change", () => {
+        // Si se selecciona la opción "si", se muestra el campo (display block)
+        if (opcion.value === "si") {
+          campo.style.display = "block";
+        } else {
+          // En caso contrario, se oculta el campo (display none)
+          campo.style.display = "none";
+        }
+      });
+    });
+  }
+
+  // Se obtienen los radio buttons y campos asociados para cada antecedente y se aplica la función
+
+  // Para Diabetes
+  const opcionesDiabetes = document.getElementsByName("DiabetesOpc");
+  const campoDiabetes = document.getElementById("DiabetesFamilia");
+  mostrarCampo(opcionesDiabetes, campoDiabetes);
+
+  // Para Hipertensión
+  const opcionesHipertension = document.getElementsByName("HipertensionOpc");
+  const campoHipertension = document.getElementById("HipertensionFamilia");
+  mostrarCampo(opcionesHipertension, campoHipertension);
+
+  // Para Cancer
+  const opcionesCancer = document.getElementsByName("CancerOpc");
+  const campoCancer = document.getElementById("CancerFamilia");
+  mostrarCampo(opcionesCancer, campoCancer);
+
+  // Para Cardiopatas
+  const opcionesCardiopatas = document.getElementsByName("CardiopatasOpc");
+  const campoCardiopatas = document.getElementById("CardiopatasFamilia");
+  mostrarCampo(opcionesCardiopatas, campoCardiopatas);
+  
+  // Para Nefropatas
+  const opcionesNefropatas = document.getElementsByName("NefropatasOpc");
+  const campoNefropatas = document.getElementById("NefropatasFamilia");
+  mostrarCampo(opcionesNefropatas, campoNefropatas);
+  
+  // Para Malformaciones
+  const opcionesMalformaciones = document.getElementsByName("MalformacionesOpc");
+  const campoMalformaciones = document.getElementById("MalformacionesFamilia");
+  mostrarCampo(opcionesMalformaciones, campoMalformaciones);
+
+  // Para Otros antecedentes
+  const opcionesOtro = document.getElementsByName("OtroOpc");
+  const campoOtro = document.getElementById("OtroFamilia");
+  mostrarCampo(opcionesOtro, campoOtro);
+</script>
+<!--
+  Este script se encarga de manejar la lógica de mostrar u ocultar los campos de texto
+  asociados a cada antecedente heredofamiliar según la selección del usuario.
+  Se utiliza un enfoque modular para facilitar la reutilización del código.
+  Cada grupo de radio buttons tiene su propio campo asociado, y al seleccionar "Si",
+  el campo correspondiente se muestra, mientras que al seleccionar "No", se oculta.
+  Esto mejora la experiencia del usuario al evitar campos innecesarios visibles en todo momento.
+-->
