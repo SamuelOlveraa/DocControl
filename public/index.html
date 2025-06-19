@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Menú de Pacientes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/7b3eecf960.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/DocControl/assets/css/estilos.css">
+    <script>
+        function redireccionarBuscar() {
+            const curp = document.getElementById("curp").value.trim();
+            if (curp) {
+                window.location.href = "/DocControl/controllers/Buscar.php?curp=" + encodeURIComponent(curp);
+            } else {
+                alert("Debes ingresar el CURP antes de realizar la búsqueda.");
+            }
+        }
+        function redireccionarRegistrar() {
+            window.location.href = "/DocControl/views/RegistroPaciente.html";
+        }
+        function evitarEnvioAutomatico(event) {
+            event.preventDefault();
+        }
+    </script>
+</head>
+<body>
+    <form class="formulario" onsubmit="evitarEnvioAutomatico(event);">
+        <h1>Menú</h1>
+        <div class="contenedor">
+            <div class="input-contenedor">
+                <i class="fa-solid fa-magnifying-glass fa-2xl icon"></i>
+                <input type="text" placeholder="CURP" id="curp">
+            </div>
+            <input type="submit" value="Buscar" class="button" onclick="redireccionarBuscar();">
+            <div class="input-contenedorMenu">
+                <i class="fa-solid fa-user-plus fa-2xl iconMenu"></i>
+                <button type="button" class="buttonMenu" onclick="redireccionarRegistrar();">Registrar</button>
+            </div>
+            <p>¿Qué deseas hacer con el paciente?</p>
+        </div>
+    </form>
+</body>
+</html>

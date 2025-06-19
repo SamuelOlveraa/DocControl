@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+    <script src="https://kit.fontawesome.com/7b3eecf960.js" crossorigin="anonymous"></script>
+    <!-- Ruta relativa para estilos, ajusta según tu estructura de carpetas -->
+    <link rel="stylesheet" href="/DocControl/assets/css/estilos.css">
+    <script>
+        function validarLogin() {
+            var usuario = document.getElementById("usuario").value;
+            var contraseña = document.getElementById("contraseña").value;
+            if (usuario === "admin" && contraseña === "admin") {
+                window.location.href = "index.html"; // Redirige a la página principal
+            } else {
+                alert("Usuario o contraseña incorrectos");
+            }
+        }
+    </script>
+</head>
+<body>
+    <form class="formulario" onsubmit="event.preventDefault(); validarLogin();">
+        <h1>Login</h1>
+        <div class="contenedor">
+            <div class="input-contenedor">
+                <i class="fa-solid fa-envelope icon"></i>
+                <input type="text" placeholder="Usuario" id="usuario" required>
+            </div>
+            <div class="input-contenedor">
+                <i class="fa-solid fa-key icon"></i>
+                <input type="password" placeholder="Contraseña" id="contraseña" required>
+            </div>
+            <input type="submit" value="Login" class="button">
+        </div>
+    </form>
+</body>
+</html>
