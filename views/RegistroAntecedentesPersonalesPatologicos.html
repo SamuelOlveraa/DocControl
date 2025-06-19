@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Se establece la codificación de caracteres para asegurar la correcta visualización de textos -->
+    <meta charset="UTF-8" />
+    <!-- Configuración para que la página se adapte a diferentes dispositivos -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Instrucción para que Internet Explorer use la versión más reciente de su motor de renderizado -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Vinculación de la hoja de estilos externa para definir la apariencia de la página -->
+    <link rel="stylesheet" href="/DocControl/assets/css/estilos.css"/>
+    <script>
+      // Función para limpiar el formulario
+      // Nota: Para que el formulario se envíe, esta función debe retornar true.
+      function limpiarFormulario() {
+        // Se utiliza el método reset() para limpiar todos los campos del formulario
+        document.getElementById("formulario").reset();
+        // Se retorna true para permitir que el formulario se envíe
+        return true;
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Contenedor principal con clase "container" -->
+    <section class="container">
+      <!-- Encabezado centrado que indica el título del formulario -->
+      <h1 style="text-align: center;">Antecedentes Personales Patológicos</h1>
+      <!-- Formulario que enviará la información a "antecedentesPersonalesPatologicos.php" mediante el método POST
+           Se incluye el atributo onsubmit para limpiar el formulario antes de enviar -->
+      <form action="/DocControl/controllers/RegistroantecedentesPersonalesPatologicos.php" method="POST" class="form" id="formulario" onsubmit="return limpiarFormulario();">
+      
+        <!-- Bloque 1: Enfermedades de la infancia -->
+        <div class="column">     
+          <div class="genero-box">
+            <label>Enfermedades de la infancia</label>
+            <div class="genero-option">
+              <div class="genero">
+                <!-- Radio button para seleccionar "Sí" en caso de haber padecido enfermedades en la infancia -->
+                <input type="radio" id="check-si-enfinfancia" name="enfinfanciaOpc" value="si" checked />
+                <label for="check-si-enfinfancia">Sí</label>
+              </div>
+              <div class="genero">
+                <!-- Radio button para seleccionar "No" -->
+                <input type="radio" id="check-no-enfinfancia" name="enfinfanciaOpc" value="no" />
+                <label for="check-no-enfinfancia">No</label>
+              </div>
+            </div>
+          </div>
+          <!-- Sección oculta inicialmente que se mostrará si se selecciona "Sí" -->
+          <div class="input-box" id="secinfancia" style="display: none;">
+            <!-- Campo de texto para especificar las enfermedades -->
+            <input type="text" placeholder="¿Cuáles?" id="enfermeinf" name="enfermeinf" autocomplete="off" />
+            <!-- Campo de texto para indicar si dejó secuelas -->
+            <input type="text" placeholder="¿Dejó alguna secuela?" id="secuelaenf" name="secuelaenf" autocomplete="off" />
+          </div>
+        </div> 
+
+        <!-- Bloque 2: Hospitalizaciones Previas -->
+        <div class="column">     
+          <div class="genero-box">
+            <label>Hospitalizaciones Previas</label>
+            <div class="genero-option">
+              <div class="genero">
+                <!-- Radio button para seleccionar "Sí" en hospitalizaciones previas -->
+                <input type="radio" id="check-si-hospital" name="hospitalOpc" value="si" checked />
+                <label for="check-si-hospital">Sí</label>
+              </div>
+              <div class="genero">
+                <!-- Radio button para seleccionar "No" -->
+                <input type="radio" id="check-no-hospital" name="hospitalOpc" value="no" />
+                <label for="check-no-hospital">No</label>
+              </div>
+            </div>
+          </div>
+          <!-- Campo oculto para especificar hospitalizaciones, se mostrará si se selecciona "Sí" -->
+          <div class="input-box" id="hosEspecif" style="display: none;">
+            <input type="text" placeholder="Especifica" id="hosespecifica" name="hosespecifica" autocomplete="off" />
+          </div>
+        </div> 
+
+        <!-- Bloque 3: Antecedentes Quirúrgicos -->
+        <div class="column">     
+          <div class="genero-box">
+            <label>Antecedentes quirúrgicos</label>
+            <div class="genero-option">
+              <div class="genero">
+                <!-- Selección de "Sí" para antecedentes quirúrgicos -->
+                <input type="radio" id="check-si-quirurgicos" name="quirurgicosOpc" value="si" checked />
+                <label for="check-si-quirurgicos">Sí</label>
+              </div>
+              <div class="genero">
+                <!-- Selección de "No" -->
+                <input type="radio" id="check-no-quirurgicos" name="quirurgicosOpc" value="no" />
+                <label for="check-no-quirurgicos">No</label>
+              </div>
+            </div>
+          </div>
+          <!-- Campo oculto para especificar el antecedente quirúrgico, visible si se selecciona "Sí" -->
+          <div class="input-box" id="quirurEspecif" style="display: none;">
+            <input type="text" placeholder="Especifica" id="quirurespecifica" name="quirurespecifica" autocomplete="off" />
+          </div>
+        </div> 
+
+        <!-- Bloque 4: Transfusiones Previas -->
+        <div class="column">     
+          <div class="genero-box">
+            <label>Transfusiones previas</label>
+            <div class="genero-option">
+              <div class="genero">
+                <!-- Selección de "Sí" para transfusiones previas -->
+                <input type="radio" id="check-si-transfuciones" name="trasfucionesOpc" value="si" checked />
+                <label for="check-si-transfuciones">Sí</label>
+              </div>
+              <div class="genero">
+                <!-- Selección de "No" -->
+                <input type="radio" id="check-no-trasfuciones" name="trasfucionesOpc" value="no" />
+                <label for="check-no-trasfuciones">No</label>
+              </div>
+            </div>
+          </div>
+          <!-- Campo oculto para especificar detalles de las transfusiones -->
+          <div class="input-box" id="trasfEspecif" style="display: none;">
+            <input type="text" placeholder="Especifica" id="trasfespecifica" name="trasfespecifica" autocomplete="off" />
+          </div>
+        </div> 
+
+        <!-- Bloque 5: Fracturas -->
+        <div class="column">     
+          <div class="genero-box">
+            <label>Fracturas</label>
+            <div class="genero-option">
+              <div class="genero">
+                <!-- Selección de "Sí" para fracturas -->
+                <input type="radio" id="check-si-fracturas" name="fracturasOpc" value="si" checked />
+                <label for="check-si-fracturas">Sí</label>
+              </div>
+              <div class="genero">
+                <!-- Selección de "No" -->
+                <input type="radio" id="check-no-fracturas" name="fracturasOpc" value="no" />
+                <label for="check-no-fracturas">No</label>
+              </div>
+            </div>
+          </div>
+          <!-- Campo oculto para especificar detalles sobre las fracturas -->
+          <div class="input-box" id="fracEspecif" style="display: none;">
+            <input type="text" placeholder="Especifica" id="fracespecifica" name="fracespecifica" autocomplete="off" />
+          </div>
+        </div> 
+
+        <!-- Bloque 6: Traumatismos -->
+        <div class="column">     
+          <div class="genero-box">
+            <label>Traumatismos</label>
+            <div class="genero-option">
+              <div class="genero">
+                <!-- Selección de "Sí" para traumatismos -->
+                <input type="radio" id="check-si-traumatismos" name="traumatismosOpc" value="si" checked />
+                <label for="check-si-traumatismos">Sí</label>
+              </div>
+              <div class="genero">
+                <!-- Selección de "No" -->
+                <input type="radio" id="check-no-traumatismos" name="traumatismosOpc" value="no" />
+                <label for="check-no-traumatismos">No</label>
+              </div>
+            </div>
+          </div>
+          <!-- Campo oculto para detallar los traumatismos -->
+          <div class="input-box" id="trauEspecif" style="display: none;">
+            <input type="text" placeholder="Especifica" id="trauespecifica" name="trauespecifica" autocomplete="off" />
+          </div>
+        </div> 
+
+        <!-- Bloque 7: Otra enfermedad -->
+        <div class="column">     
+          <div class="genero-box">
+            <label>Otra enfermedad</label>
+            <div class="genero-option">
+              <div class="genero">
+                <!-- Selección de "Sí" para indicar otra enfermedad -->
+                <input type="radio" id="check-si-otraenf" name="otraenfOpc" value="si" checked />
+                <label for="check-si-otraenf">Sí</label>
+              </div>
+              <div class="genero">
+                <!-- Selección de "No" -->
+                <input type="radio" id="check-no-otraenf" name="otraenfOpc" value="no" />
+                <label for="check-no-otraenf">No</label>
+              </div>
+            </div>
+          </div>
+          <!-- Campo oculto para especificar detalles sobre la otra enfermedad -->
+          <div class="input-box" id="otraenfEspecif" style="display: none;">
+            <input type="text" placeholder="Especifica" id="otraenfespecifica" name="otraenfespecifica" autocomplete="off" />
+          </div>
+        </div> 
+
+        <!-- Botón para enviar el formulario -->
+        <button type="submit">Registrar</button>
+      </form>
+    </section>
+  </body>
+</html>
+
+<!-- Script para mostrar u ocultar campos según la selección de cada bloque -->
+<script>
+  // Función que agrega un listener a cada opción (radio button)
+  // y muestra u oculta el campo de texto asociado según la respuesta ("si" o "no")
+  function mostrarCampo(opciones, campo) {
+    opciones.forEach((opcion) => {
+      opcion.addEventListener("change", () => {
+        if (opcion.value === "si") {
+          campo.style.display = "block";  // Muestra el campo si se selecciona "Sí"
+        } else {
+          campo.style.display = "none";   // Oculta el campo si se selecciona "No"
+        }
+      });
+    });
+  }
+  
+  // Se obtienen las opciones y campos asociados para cada bloque del formulario
+  
+  // Para Enfermedades de la infancia
+  const opcionesEnfinfancia = document.getElementsByName("enfinfanciaOpc");
+  const campoEnfinfancia = document.getElementById("secinfancia");
+  mostrarCampo(opcionesEnfinfancia, campoEnfinfancia);
+  
+  // Para Hospitalizaciones Previas
+  const opcionesHospital = document.getElementsByName("hospitalOpc");
+  const campoHospital = document.getElementById("hosEspecif");
+  mostrarCampo(opcionesHospital, campoHospital);
+  
+  // Para Antecedentes Quirúrgicos
+  const opcionesQuirurgicos = document.getElementsByName("quirurgicosOpc");
+  const campoQuirurgicos = document.getElementById("quirurEspecif");
+  mostrarCampo(opcionesQuirurgicos, campoQuirurgicos);
+  
+  // Para Transfusiones Previas
+  const opcionesTransfusiones = document.getElementsByName("trasfucionesOpc");
+  const campoTransfusiones = document.getElementById("trasfEspecif");
+  mostrarCampo(opcionesTransfusiones, campoTransfusiones);
+  
+  // Para Fracturas
+  const opcionesFracturas = document.getElementsByName("fracturasOpc");
+  const campoFracturas = document.getElementById("fracEspecif");
+  mostrarCampo(opcionesFracturas, campoFracturas);
+  
+  // Para Traumatismos
+  const opcionesTraumatismos = document.getElementsByName("traumatismosOpc");
+  const campoTraumatismos = document.getElementById("trauEspecif");
+  mostrarCampo(opcionesTraumatismos, campoTraumatismos);
+  
+  // Para Otra enfermedad
+  const opcionesOtraEnf = document.getElementsByName("otraenfOpc");
+  const campoOtraEnf = document.getElementById("otraenfEspecif");
+  mostrarCampo(opcionesOtraEnf, campoOtraEnf);
+</script>
