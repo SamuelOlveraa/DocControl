@@ -6,6 +6,6 @@ $_SESSION = array();
 
 
 // Redirigir al usuario a la página de inicio de sesión o a otra página deseada
-header("Location: http:/index.html");
+header("Location:/DocControl/public/index.html");
 exit();
 ?>

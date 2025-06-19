@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+  <!-- Se especifica que el idioma del documento es español -->
+<head>
+  <!-- Se define la codificación de caracteres para asegurar la correcta visualización de textos -->
+  <meta charset="UTF-8" />
+  <!-- Se configura la vista para dispositivos móviles, estableciendo límites de escalado -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <!-- Se indica a Internet Explorer que use la última versión del motor de renderizado -->
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <!-- Título de la página que se mostrará en la pestaña del navegador -->
+  <title>Registro Paciente</title>
+  <!-- Se enlaza la hoja de estilos externa para definir la apariencia de la página -->
+  <link rel="stylesheet" href="/DocControl/assets/css/estilos.css" />
+</head>
+<body>
+  <!-- Sección principal con clase "container" para agrupar el contenido -->
+  <section class="container">
+    <!-- Encabezado principal centrado para indicar el propósito del formulario -->
+    <h1 style="text-align: center;">Registro Paciente</h1>
+    <!-- Formulario que actúa como contenedor de botones para navegar a diferentes secciones -->
+    <form class="form" id="formulario">
+      
+      <!-- Primera columna: Botones para acceder a antecedentes heredo-familiares y patológicos -->
+      <div class="column">
+        <!-- Botón que redirige a la página de "Antecedentes HeredoFamiliares" al hacer clic -->
+        <button type="button" onclick="window.location.href='/DocControl/views/RegistroHeredo.html'">
+          Antecedentes HeredoFamiliares
+        </button>
+        <!-- Botón que redirige a la página de "Antecedentes Patologicos" -->
+        <button type="button" onclick="window.location.href='/DocControl/views/RegistroAntecedentesPersonalesPatologicos.html'">
+          Antecedentes Patologicos
+        </button>
+      </div>
+      
+      <!-- Segunda columna: Botones para acceder a otros antecedentes -->
+      <div class="column">
+        <!-- Botón que redirige a la página de "Antecedentes No Patologicos" -->
+        <button type="button" onclick="window.location.href='/DocControl/views/RegistroAntecedentesNoPatologicos.html'">
+          Antecedentes No Patologicos
+        </button>
+        <!-- Botón que redirige a la página de "Antecedentes Gineco Obstetricos"
+             Nota: Este botón se ocultará si el género es "hombre" (lógica que se maneja en otro lugar) -->
+        <button type="button" id="btnGineco" onclick="window.location.href='/DocControl/views/RegistroAntecedentesGinecoObstetricos.html'">
+          Antecedentes Gineco Obstetricos
+        </button>
+      </div>
+      
+      <!-- Botón que redirige a la página "Medicamentos En Uso" -->
+      <button type="button" onclick="window.location.href='/DocControl/views/RegistroMedicamentos.html'">
+         Medicamentos En Uso
+      </button>
+      
+      <!-- Botón que redirige al menú principal o a la página de logout -->
+      <button type="button" onclick="window.location.href='/DocControl/public/logout.php'">
+        Menu
+      </button>
+    </form>
+  </section>
+</body>
+</html>
