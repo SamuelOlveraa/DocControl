@@ -207,7 +207,7 @@
   function mostrarCampo(opciones, campo) {
     opciones.forEach((opcion) => {
       opcion.addEventListener("change", () => {
-        if (opcion.value === "si") {
+        if (opcion.value === "no") {
           campo.style.display = "block";  // Muestra el campo si se selecciona "Sí"
         } else {
           campo.style.display = "none";   // Oculta el campo si se selecciona "No"
