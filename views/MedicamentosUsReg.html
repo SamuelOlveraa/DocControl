@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="/DocControl/assets/css/estilos.css" />
+    <script>
+      // Función para validar el formulario (puedes agregar validaciones adicionales si lo deseas)
+      function validarFormulario() {
+        // Por ejemplo: podrías verificar que la hora no esté vacía, etc.
+        // Actualmente retorna true para dejar pasar el envío.
+        return true;
+      }
+
+      // Función que se ejecuta al enviar el formulario
+      function enviarFormulario(event) {
+        if (!validarFormulario()) {
+          // Si la validación falla, se cancela el envío
+          event.preventDefault();
+          return false;
+        }
+        // Si la validación es exitosa, se permite el envío del formulario
+        return true;
+      }
+    </script>
+  </head>
+  <body>
+    <section class="container">
+      <h1 style="text-align: center;">Registrar Medicamento</h1>
+      <form
+        action="/DocControl/controllers/MedicamentosUsReg.php"
+        method="POST"
+        class="form"
+        id="formulario"
+        onsubmit="return enviarFormulario(event);"
+      >
+        <div class="input-box">
+          <label for="NombreMedicamento">Nombre</label>
+          <input
+            type="text"
+            placeholder="Ingresa el nombre del medicamento"
+            id="NombreMedicamento"
+            name="NombreMedicamento"
+            autocomplete="off"
+            required
+          />
+        </div>
+        <div class="column">
+          <div class="input-box">
+            <label for="NombreActivo">Principio activo</label>
+            <input
+              type="text"
+              placeholder="Ingresa el principio activo"
+              id="NombreActivo"
+              name="NombreActivo"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="input-box">
+            <label for="Presentacion">Presentación (mg, UI)</label>
+            <input
+              type="text"
+              placeholder="Ingresa presentación"
+              id="Presentacion"
+              name="Presentacion"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="input-box">
+            <label for="Dosis">Dosis (mg)</label>
+            <input
+              type="number"
+              placeholder="Ingresa la dosis"
+              id="Dosis"
+              name="Dosis"
+              min="0"
+              max="300"
+              autocomplete="off"
+              required
+            />
+          </div>
+        </div>
+        <div class="column">
+          <div class="input-box">
+            <label for="Via">Vía</label>
+            <input
+              type="text"
+              placeholder="Ingresa la vía"
+              id="Via"
+              name="Via"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="input-box">
+            <label for="FechaUlAdmin">Última administración</label>
+            <input
+              type="date"
+              id="FechaUlAdmin"
+              name="FechaUlAdmin"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="input-box">
+            <label for="hora">Hora última administración</label>
+            <!-- Se agregó el atributo required para asegurar que se ingrese un valor -->
+            <input type="time" id="hora" name="hora" required>
+          </div>
+        </div>
+        <div class="column">
+          <button type="submit">Registrar</button>
+          <button type="button" onclick="window.location.href='/DoControl/public/logout.php'">
+            Regresar
+          </button>
+        </div>
+      </form>
+    </section>
+  </body>
+</html>

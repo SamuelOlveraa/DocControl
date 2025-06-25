@@ -128,11 +128,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <div class='container'>
             <p>Los datos se han registrado correctamente.</p>
             <p>¿Desea agregar medicamentos?</p>
-            <form action='MedicamentosUsReg.html' method='GET'>
+            <form action='/DocControl/views/MedicamentosUsReg.html' method='GET'>
               <input type='hidden' name='paciente_curp' value='$paciente_curp'>
               <button type='submit' name='action' value='agregar' class='btn'>Agregar medicamentos</button>
             </form>
-            <form action='Buscar.php' method='GET'>
+            <form action='/DocControl/controllers/Buscar.php' method='GET'>
               <button type='submit' class='btn btn-secondary'>No agregar medicamentos</button>
             </form>
           </div>
