@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Define la codificación de caracteres como UTF-8 -->
+    <meta charset="UTF-8" />
+    <!-- Configura el viewport para que la página se adapte a diferentes dispositivos -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Indica a Internet Explorer que utilice el motor de renderizado más reciente -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Vincula la hoja de estilos externa para dar formato al formulario -->
+    <link rel="stylesheet" href="estilosregistro.css" />
+</head>
+
+<body>
+    <!-- Contenedor principal del formulario -->
+    <section class="container">
+        <!-- Título principal de la sección -->
+        <form action="FichaClinica.php" method="POST" class="form" id="formulario">
+            
+            <!-- Encabezado de la sección de "Visita" -->
+            <h1 style="text-align: center;">Visita</h1>
+            
+            <!-- Campo para seleccionar la fecha de la visita -->
+            <div class="input-box">
+                <label>Fecha:</label>
+                <input type="date" name="Fecha" id="fecha" autocomplete="off" required>
+            </div>
+
+            <!-- Campo para ingresar el motivo de ingreso del paciente -->
+            <div class="input-box">
+                <label>Motivo de ingreso</label>
+                <input type="text" placeholder="Ingrese el motivo de ingreso" id="MoIngreso" name="MoIngreso" autocomplete="off" required />
+            </div>
+
+            <!-- Campo para registrar el principio y evolución del padecimiento actual -->
+            <div class="input-box">
+                <label> Principio y Evolución del Padecimiento Actual</label>
+                <input type="text" placeholder="Ingresa la información" id="PriEvo" name="PriEvo" autocomplete="off" required />
+            </div>
+            
+            <!-- Encabezado para el Interrogatorio por Aparatos y Sistemas -->
+            <h1 style="text-align: center;">Interrogatorio por Aparatos y Sistemas </h1>
+            
+            <!-- Campo para registrar información del sistema Respiratorio / Cardiovascular -->
+            <div class="input-box">
+                <label>Respiratorio /Cardiovascular:</label>
+                <input type="text" id="ResCardio" name="ResCardio" placeholder="Ingrese la información" autocomplete="off" required/>
+            </div>
+            
+            <!-- Campo para registrar información del sistema Digestivo -->
+            <div class="input-box">
+                <label>Digestivo:</label>
+                <input type="text" placeholder="Ingrese la información" name="Digestivo" id="Digestivo" autocomplete="off" required/>
+            </div>
+            
+            <!-- Campo para registrar información del sistema Endocrino -->
+            <div class="input-box">
+                <label>Endocrino:</label>
+                <input type="text" placeholder="Ingrese la información" name="Endocrino" id="endocrino" autocomplete="off" required/>
+            </div>
+
+            <!-- Campo para registrar información del sistema Musculo-Esquelético -->
+            <div class="input-box">
+                <label>Musculo-Esquelético:</label>
+                <input type="text" placeholder="Ingrese la información" name="MusEs" id="MusEs" autocomplete="off" required/>
+            </div>
+
+            <!-- Campo para registrar información del sistema Genito-Urinario -->
+            <div class="input-box">
+                <label>Genito-Urinario</label>
+                <input type="text" placeholder="Ingrese la información" name="GenUr" id="GenUr" autocomplete="off" required/>
+            </div>
+
+            <!-- Campo para registrar información del sistema Piel y Anexos -->
+            <div class="input-box">
+                <label>Piel y Anexos:</label>
+                <input type="text" placeholder="Ingrese la información" id="PiAnex" name="PiAnex" autocomplete="off" required />
+            </div>
+
+            <!-- Campo para registrar información del sistema Neurológico y Psiquiátrico -->
+            <div class="input-box">
+                <label>Neurológico y Psiquiátrico</label>
+                <input type="text" placeholder="Ingrese la información" id="NeuPsi" name="NeuPsi" autocomplete="off" required />
+            </div>
+
+            <!-- Encabezado para la sección de "Ficha clinica" -->
+            <h1 style="text-align: center;">Ficha clinica</h1>
+            
+            <!-- Grupo de campos de datos vitales y físicos -->
+            <div class="column">
+                <!-- Campo para Tensión Arterial (TA) -->
+                <div class="input-box">
+                    <label>TA:</label>
+                    <input type="text" placeholder="mm/Hg" id="ta" name="ta" autocomplete="off" required />
+                </div>
+
+                <!-- Campo para la Frecuencia Cardíaca/Pulso -->
+                <div class="input-box">
+                    <label>FC/Pulso:</label>
+                    <input type="number" placeholder="min" id="pulso" name="pulso" autocomplete="off" required />
+                </div>
+
+                <!-- Campo para la Temperatura corporal -->
+                <div class="input-box">
+                    <label>Temp:</label>
+                    <input type="number" placeholder="°C" id="temp" name="Temp" autocomplete="off" required />
+                </div>
+
+                <!-- Campo para el Peso -->
+                <div class="input-box">
+                    <label>Peso:</label>
+                    <input type="tetx" placeholder="Kg" id="Peso" name="Peso" autocomplete="off" required />
+                </div>
+
+                <!-- Campo para la Talla -->
+                <div class="input-box">
+                    <label>Talla:</label>
+                    <input type="text" placeholder="m" id="Talla" name="Talla" autocomplete="off" required />
+                </div>
+            </div>
+
+            <!-- Campo para registrar el Habitus Exterior -->
+            <div class="input-box">
+                <label>Habitus Exterior:</label>
+                <input type="text" placeholder="Ingrese la información" id="Habitus" name="Habitus" autocomplete="off" required />
+            </div>
+  
+            <!-- Campo para registrar la información del sistema Piel y Anexos (segunda vez, para fines específicos de la ficha) -->
+            <div class="input-box">
+                <label>Piel y Anexos:</label>
+                <input type="text" placeholder="Ingrese la información" id="PielAnex" name="PielAnex" autocomplete="off" required />
+            </div>
+  
+            <!-- Campo para registrar la información de la Cabeza y Cuello -->
+            <div class="input-box">
+                <label>Cabeza y Cuello:</label>
+                <input type="text" placeholder="Ingrese la información" id="CabCue" name="CabCue" autocomplete="off" required />
+            </div>
+  
+            <!-- Campo para registrar la información del Torax -->
+            <div class="input-box">
+                <label>Toráx:</label>
+                <input type="text" placeholder="Ingrese la información" id="Torax" name="Torax" autocomplete="off" required />
+            </div>
+  
+            <!-- Campo para registrar la información del Abdomen -->
+            <div class="input-box">
+                <label>Abdomen:</label>
+                <input type="text" placeholder="Ingrese la información" id="Abdomen" name="Abdomen" autocomplete="off" required />
+            </div>
+  
+            <!-- Campo para registrar la información de los Genitales -->
+            <div class="input-box">
+                <label>Genitales:</label>
+                <input type="text" placeholder="Ingrese la información" id="Genitales" name="Genitales" autocomplete="off" required />
+            </div>
+  
+            <!-- Campo para registrar la información de las Extremidades -->
+            <div class="input-box">
+                <label>Extremidades:</label>
+                <input type="text" placeholder="Ingrese la información" id="Extremidades" name="Extremidades" autocomplete="off" required />
+            </div>
+  
+            <!-- Campo para registrar la información del Sistema Nervioso -->
+            <div class="input-box">
+                <label>Sistema Nervioso:</label>
+                <input type="text" placeholder="Ingrese la información" id="SistemNer" name="SistemNerv" autocomplete="off" required />
+            </div>
+  
+            <!-- Espacio vacío para separación visual -->
+            <div class="input-box"></div>
+  
+            <!-- Encabezado para la sección de Análisis, Integración y Terapéutica -->
+            <h1 style="text-align: center;">Análisis, Integración y Terapéutica</h1>
+    
+            <!-- Campo para registrar el Probable Diagnóstico -->
+            <div class="input-box">
+                <label>Probables Diagnostico:</label>
+                <input type="text" placeholder="Ingrese la información" name="ProDiagnostico" autocomplete="off" required />
+            </div>
+  
+            <!-- Campo para registrar el Plan de Estudio -->
+            <div class="input-box">
+                <label>Plan de Estudio:</label>
+                <input type="text" placeholder="Ingrese la información" name="PlanEstudio" autocomplete="off" required />
+            </div>
+  
+            <!-- Campo para registrar la Terapéutica Inicial -->
+            <div class="input-box">
+                <label>Terapéutica Inicial:</label>
+                <input type="text" placeholder="Ingrese la información" name="TerapeuticaInicial" autocomplete="off" required />
+            </div>
+  
+            <!-- Campo para registrar Observaciones y/o Comentarios Finales -->
+            <div class="input-box">
+                <label>Observaciones y/o Comentarios Finales:</label>
+                <input type="text" placeholder="Ingrese la información" name="Observaciones" autocomplete="off" required />
+            </div>
+  
+            <!-- Campo para registrar la Condición del paciente -->
+            <div class="input-box">
+                <label>Condición:</label>
+                <input type="text" placeholder="Ingrese la información" name="Condicion" autocomplete="off" required />
+            </div>
+  
+            <!-- Campo para registrar el Pronóstico -->
+            <div class="input-box">
+                <label>Pronostico:</label>
+                <input type="text" placeholder="Ingrese la información" name="Pronostico" autocomplete="off" required />
+            </div>
+  
+            <!-- Botón para enviar el formulario y registrar la ficha clínica -->
+            <button type="submit">Registrar</button>
+        </form>     
+    </section>
+</body>
+</html>

@@ -73,7 +73,7 @@ if (isset($_GET['curp'])) {
             exit;
         } elseif ($_POST['action'] === 'crear_consulta') {
             // Redirigir a la página para crear una nueva consulta.
-            header("Location: FichaClinica.html");
+            header("Location: /DocControl/views/FichaClinica.html");
             exit;
         }
     }
