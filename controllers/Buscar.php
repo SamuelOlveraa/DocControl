@@ -65,11 +65,11 @@ if (isset($_GET['curp'])) {
             }
         } elseif ($_POST['action'] === 'ver_consultas') {
             // Redirigir a la página de consultas.
-            header("Location: Consultas.php");
+            header("Location:/DocControl/controllers/Consultas.php");
             exit;
         } elseif ($_POST['action'] === 'ver_Informacion') {
             // Redirigir a la página con la información editable.
-            header("Location: FormulariosEditables.html");
+            header("Location: /DocControl/views/FormulariosEditables.html");
             exit;
         } elseif ($_POST['action'] === 'crear_consulta') {
             // Redirigir a la página para crear una nueva consulta.
