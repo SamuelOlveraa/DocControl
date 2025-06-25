@@ -44,7 +44,7 @@
                     $fechaVisita = $row['fecha'];
                     // Se genera un enlace (botón) para cada fecha de visita que redirige a "Visitas.php"
                     // pasando la fecha por medio del parámetro GET
-                    echo "<a class='button' href='Visitas.php?fecha=$fechaVisita'>$fechaVisita</a>";
+                    echo "<a class='button' href='/DocControl/controllers/Visitas.php?fecha=$fechaVisita'>$fechaVisita</a>";
                 }
             } else {
                 // Si no se encontraron visitas para el paciente, se muestra un mensaje informativo
@@ -62,7 +62,7 @@
         <script>
             // Función JavaScript para redireccionar a la página "Visitas.php" pasando la fecha de visita
             function mostrarFormulario(fecha) {
-                window.location.href = 'Visitas.php?fecha=' + fecha;
+                window.location.href = '/DocControl/controllers/Visitas.php?fecha=' + fecha;
             }
         </script>
     </div>
