@@ -22,7 +22,7 @@
   -->
   <section class="container">
     <!-- Título principal de la sección, centrado -->
-    <h1 style="text-align: center;">Modificación Paciente</h1>
+    <h1 style="text-align: center;">Información del Paciente</h1>
     <!-- Formulario de navegación; en este caso, se usa para acceder a diferentes secciones 
          relacionadas con la modificación de la información del paciente.
          El formulario no tiene un atributo "action" definido porque se usa para la navegación
@@ -32,33 +32,33 @@
       <!-- Primera columna de botones -->
       <div class="column">
         <!-- Botón para acceder a la sección de "Antecedentes HeredoFamiliares" -->
-        <button type="button" onclick="window.location.href='http://localhost/DesarrolloWeb/MoHeredo.php'">
+        <button type="button" onclick="window.location.href='/DocControl/controllers/MoHeredo.php'">
           Antecedentes HeredoFamiliares
         </button>
         <!-- Botón para acceder a la sección de "Antecedentes Patologicos" -->
-        <button type="button" onclick="window.location.href='http://localhost/DesarrolloWeb/MoPatologicos.php'">
+        <button type="button" onclick="window.location.href='/DocControl/controllers/MoPatologicos.php'">
           Antecedentes Patologicos
         </button>
       </div>
       <!-- Segunda columna de botones -->
       <div class="column">
         <!-- Botón para acceder a la sección de "Antecedentes No Patologicos" -->
-        <button type="button" onclick="window.location.href='http://localhost/DesarrolloWeb/MoNoPatologicos.php'">
+        <button type="button" onclick="window.location.href='/DocControl/controllers/MoNoPatologicos.php'">
           Antecedentes No Patologicos
         </button>
         <!-- Botón para acceder a la sección de "Antecedentes Gineco Obstetricos"
              Se asigna un id "btnGineco" (posiblemente para usarlo en JavaScript o CSS)
         -->
-        <button type="button" id="btnGineco" onclick="window.location.href='http://localhost/DesarrolloWeb/MoAntecedentesGinecoObstetricos.php'">
+        <button type="button" id="btnGineco" onclick="window.location.href='/DocControl/controllers/MoAntecedentesGinecoObstetricos.php'">
           Antecedentes Gineco Obstetricos
         </button>
       </div>
       <!-- Botón para acceder a la sección de "Medicamentos En Uso" -->
-      <button type="button" onclick="window.location.href='http://localhost/DesarrolloWeb/ListaMeddicamentos.php'">
+      <button type="button" onclick="window.location.href='/DocControl/controllers/ListaMeddicamentos.php'">
          Medicamentos En Uso
       </button>
       <!-- Botón para regresar al "Menu Principal" (usualmente finaliza la sesión o regresa al dashboard) -->
-      <button type="button" onclick="window.location.href='http://localhost/DesarrolloWeb/logout.php'">
+      <button type="button" onclick="window.location.href='/DocControl/public/logout.php'">
         Menu
       </button>
     </form>
