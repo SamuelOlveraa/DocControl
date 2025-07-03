@@ -1,305 +1,211 @@
 <?php
-
 // ------------------------
-// Conexión a la Base de Datos
+// Conexión y Sesión
 // ------------------------
-$servername = "localhost";         // Servidor de la base de datos
-$username   = "root";              // Usuario de la base de datos
-$password   = "";                  // Contraseña (vacía en este ejemplo)
-$dbname     = "clinica";           // Nombre de la base de datos
-
-// Establecer la conexión usando mysqli
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "clinica";
 $conn = mysqli_connect($servername, $username, $password, $dbname);
-if (!$conn) {
-    die("Conexión fallida: " . mysqli_connect_error());
-}
+if (!$conn) die("Conexión fallida: " . mysqli_connect_error());
 
-// ------------------------
-// 2. Manejo de Sesión y Obtención de la CURP
-// ------------------------
 session_start();
-// Se recupera la CURP del paciente, utilizada para identificar el registro a actualizar.
-$curp = isset($_SESSION['curp']) ? $_SESSION['curp'] : '';
+$curp = $_SESSION['curp'] ?? '';
 
-// ------------------------
-// 3. Procesamiento del Formulario (Actualización)
-// ------------------------
 if (isset($_POST['action'])) {
     if ($_POST['action'] === 'actualizar') {
-        // Capturar los valores enviados desde el formulario
-        $enfermedades_infancia             = $_POST['enfermedadesInfancia'];
-        $secuelas_infancia                 = $_POST['secuelasInfancia'];
-        $hospitalizaciones_previas         = $_POST['hospitalizacionesPrevias'];
-        $especificacion_hospitalizaciones  = $_POST['especificacionHospitalizaciones'];
-        $antecedentes_quirurgicos          = $_POST['antecedentesQuirurgicos'];
-        $especificacion_quirurgicos        = $_POST['especificacionQuirurgicos'];
-        $transfusiones_previas             = $_POST['transfusionesPrevias'];
-        $especificacion_transfusiones      = $_POST['especificacionTransfusiones'];
-        $fracturas                         = $_POST['fracturas'];
-        $especificacion_fracturas          = $_POST['especificacionFracturas'];
-        $traumatismos                      = $_POST['traumatismos'];
-        $especificacion_traumatismos       = $_POST['especificacionTraumatismos'];
-        $otra_enfermedad                   = $_POST['otraEnfermedad'];
-        $especificacion_otra_enfermedad    = $_POST['especificacionOtraEnfermedad'];
+        $campos = [
+            'enfermedadesInfancia', 'secuelasInfancia', 'hospitalizacionesPrevias',
+            'especificacionHospitalizaciones', 'antecedentesQuirurgicos', 'especificacionQuirurgicos',
+            'transfusionesPrevias', 'especificacionTransfusiones', 'fracturas',
+            'especificacionFracturas', 'traumatismos', 'especificacionTraumatismos',
+            'otraEnfermedad', 'especificacionOtraEnfermedad'
+        ];
+        $datos = array_map(fn($campo) => $_POST[$campo] ?? '', $campos);
 
-        // Construir la consulta SQL para actualizar el registro existente
         $sql = "UPDATE antecedentes_personales_patologicos SET 
-                    enfermedades_infancia             = '$enfermedades_infancia',
-                    secuelas_infancia                 = '$secuelas_infancia',
-                    hospitalizaciones_previas         = '$hospitalizaciones_previas',
-                    especificacion_hospitalizaciones  = '$especificacion_hospitalizaciones',
-                    antecedentes_quirurgicos          = '$antecedentes_quirurgicos',
-                    especificacion_quirurgicos        = '$especificacion_quirurgicos',
-                    transfusiones_previas             = '$transfusiones_previas',
-                    especificacion_transfusiones      = '$especificacion_transfusiones',
-                    fracturas                         = '$fracturas',
-                    especificacion_fracturas          = '$especificacion_fracturas',
-                    traumatismos                      = '$traumatismos',
-                    especificacion_traumatismos       = '$especificacion_traumatismos',
-                    otra_enfermedad                   = '$otra_enfermedad',
-                    especificacion_otra_enfermedad    = '$especificacion_otra_enfermedad'
+                enfermedades_infancia = '$datos[0]', secuelas_infancia = '$datos[1]',
+                hospitalizaciones_previas = '$datos[2]', especificacion_hospitalizaciones = '$datos[3]',
+                antecedentes_quirurgicos = '$datos[4]', especificacion_quirurgicos = '$datos[5]',
+                transfusiones_previas = '$datos[6]', especificacion_transfusiones = '$datos[7]',
+                fracturas = '$datos[8]', especificacion_fracturas = '$datos[9]',
+                traumatismos = '$datos[10]', especificacion_traumatismos = '$datos[11]',
+                otra_enfermedad = '$datos[12]', especificacion_otra_enfermedad = '$datos[13]'
                 WHERE paciente_curp = '$curp'";
-        
-        if (mysqli_query($conn, $sql)) {
-            // Registro actualizado correctamente.
-        } else {
-            echo "Error al actualizar los datos del paciente: " . mysqli_error($conn);
-        }
+        mysqli_query($conn, $sql) or die("Error al actualizar: " . mysqli_error($conn));
     } elseif ($_POST['action'] === 'Salir') {
         header("Location:/DocControl/views/FormulariosEditables.html");
         exit;
     }
 }
 
-// ------------------------
-// 4. Recuperación de Datos Existentes
-// ------------------------
-if (!empty($curp)) {
+$valores = array_fill_keys([
+    'enfermedades_infancia', 'secuelas_infancia', 'hospitalizaciones_previas',
+    'especificacion_hospitalizaciones', 'antecedentes_quirurgicos', 'especificacion_quirurgicos',
+    'transfusiones_previas', 'especificacion_transfusiones', 'fracturas',
+    'especificacion_fracturas', 'traumatismos', 'especificacion_traumatismos',
+    'otra_enfermedad', 'especificacion_otra_enfermedad'
+], "");
+
+if ($curp) {
     $sql = "SELECT * FROM antecedentes_personales_patologicos WHERE paciente_curp = '$curp'";
-    $result = mysqli_query($conn, $sql);
-    if ($result && mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        $enfermedades_infancia             = $row["enfermedades_infancia"];
-        $secuelas_infancia                 = $row["secuelas_infancia"];
-        $hospitalizaciones_previas         = $row["hospitalizaciones_previas"];
-        $especificacion_hospitalizaciones  = $row["especificacion_hospitalizaciones"];
-        $antecedentes_quirurgicos          = $row["antecedentes_quirurgicos"];
-        $especificacion_quirurgicos        = $row["especificacion_quirurgicos"];
-        $transfusiones_previas             = $row["transfusiones_previas"];
-        $especificacion_transfusiones      = $row["especificacion_transfusiones"];
-        $fracturas                         = $row["fracturas"];
-        $especificacion_fracturas          = $row["especificacion_fracturas"];
-        $traumatismos                      = $row["traumatismos"];
-        $especificacion_traumatismos       = $row["especificacion_traumatismos"];
-        $otra_enfermedad                   = $row["otra_enfermedad"];
-        $especificacion_otra_enfermedad    = $row["especificacion_otra_enfermedad"];
-    } else {
-        // Inicializar variables en blanco (se espera que la CURP ya exista en actualización)
-        $enfermedades_infancia             = "";
-        $secuelas_infancia                 = "";
-        $hospitalizaciones_previas         = "";
-        $especificacion_hospitalizaciones  = "";
-        $antecedentes_quirurgicos          = "";
-        $especificacion_quirurgicos        = "";
-        $transfusiones_previas             = "";
-        $especificacion_transfusiones      = "";
-        $fracturas                         = "";
-        $especificacion_fracturas          = "";
-        $traumatismos                      = "";
-        $especificacion_traumatismos       = "";
-        $otra_enfermedad                   = "";
-        $especificacion_otra_enfermedad    = "";
-    }
+    $res = mysqli_query($conn, $sql);
+    if ($res && mysqli_num_rows($res) > 0) $valores = mysqli_fetch_assoc($res);
 }
 mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Actualizar Antecedentes Patológicos</title>
-    <!-- Estilos internos para una distribución responsiva con Flexbox -->
-    <style>
-      .container {
-        max-width: 900px;
-        margin: 20px auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        background: #f9f9f9;
-      }
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        margin-bottom: 15px;
-      }
-      .col {
-        flex: 1;
-        min-width: 250px;
-        padding: 10px;
-      }
-      .input-box {
-        margin-bottom: 10px;
-      }
-      label {
-        display: block;
-        font-weight: bold;
-        margin-bottom: 5px;
-      }
-      input[type="text"],
-      textarea {
-        width: 100%;
-        padding: 8px;
-        box-sizing: border-box;
-      }
-      input[type="radio"] {
-        margin-right: 5px;
-      }
-      button {
-        padding: 10px 20px;
-        margin-right: 10px;
-      }
-      .button-row {
-        display: flex;
-        justify-content: center;
-      }
-    </style>
-    <!-- Se puede incluir una hoja de estilos externa si se requiere -->
-    <link rel="stylesheet" href="/DocControl/assets/css/estilos.css" />
-  </head>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Actualizar Antecedentes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body {
+      background: linear-gradient(-45deg, #e0f7fa, #f0f9ff, #e8f0fe, #f3f4f6);
+      background-size: 400% 400%;
+      animation: gradientBackground 18s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    @keyframes gradientBackground {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .container {
+      background: #ffffff;
+      max-width: 900px;
+      width: 100%;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    .container h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1a2537;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .column {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .col {
+      flex: 1 1 300px;
+    }
+    .input-box label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #2c3e50;
+    }
+    .input-box textarea,
+    .input-box input[type="text"] {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      background: #f9fafb;
+      font-size: 1rem;
+    }
+    .input-box input[type="radio"] {
+      margin-right: 6px;
+    }
+    .form button {
+      background: linear-gradient(to right, #1a2537, #3b82f6);
+      color: #ffffff;
+      padding: 14px 28px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      margin-right: 10px;
+      transition: all 0.3s ease-in-out;
+    }
+    .form button:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(to right, #3b82f6, #1a2537);
+    }
+    .acciones {
+      text-align: center;
+      margin-top: 30px;
+    }
+  </style>
+</head>
 <body>
-  <section class="container">
-    <form method="POST" class="form" id="formulario">
-      <h1 style="text-align: center;">Actualizar Antecedentes Patológicos</h1>
-      
-      <!-- Fila 1: Enfermedades y Secuelas en la Infancia -->
-      <div class="column">
-        <div class="col">
-          <div class="input-box">
-            <label>Enfermedades en la infancia:</label>
-            <textarea name="enfermedadesInfancia"><?php echo $enfermedades_infancia; ?></textarea>
-          </div>
-        </div>
-        <div class="column">
-          <div class="input-box">
-            <label>Secuelas en la infancia:</label>
-            <textarea name="secuelasInfancia"><?php echo $secuelas_infancia; ?></textarea>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Fila 2: Hospitalizaciones Previas y Especificación -->
-      <div class="column">
-        <div class="col">
-          <div class="input-box">
-            <label>Hospitalizaciones previas:</label>
-            <!-- Radio buttons para campo enum: 'si' o 'no' -->
-            <input type="radio" name="hospitalizacionesPrevias" value="si" <?php if ($hospitalizaciones_previas=="si") echo "checked"; ?>> Sí
-            <input type="radio" name="hospitalizacionesPrevias" value="no" <?php if ($hospitalizaciones_previas=="no") echo "checked"; ?>> No
-          </div>
-        </div>
-        <div class="col">
-          <div class="input-box">
-            <label>Especificación de hospitalizaciones:</label>
-            <input type="text" name="especificacionHospitalizaciones" value="<?php echo $especificacion_hospitalizaciones; ?>">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Fila 3: Antecedentes Quirúrgicos y Especificación -->
-      <div class="column">
-        <div class="col">
-          <div class="input-box">
-            <label>Antecedentes quirúrgicos:</label>
-            <input type="radio" name="antecedentesQuirurgicos" value="si" <?php if ($antecedentes_quirurgicos=="si") echo "checked"; ?>> Sí
-            <input type="radio" name="antecedentesQuirurgicos" value="no" <?php if ($antecedentes_quirurgicos=="no") echo "checked"; ?>> No
-          </div>
-        </div>
-        <div class="col">
-          <div class="input-box">
-            <label>Especificación quirúrgicos:</label>
-            <input type="text" name="especificacionQuirurgicos" value="<?php echo $especificacion_quirurgicos; ?>">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Fila 4: Transfusiones Previas y Especificación -->
-      <div class="column">
-        <div class="col">
-          <div class="input-box">
-            <label>Transfusiones previas:</label>
-            <input type="radio" name="transfusionesPrevias" value="si" <?php if ($transfusiones_previas=="si") echo "checked"; ?>> Sí
-            <input type="radio" name="transfusionesPrevias" value="no" <?php if ($transfusiones_previas=="no") echo "checked"; ?>> No
-          </div>
-        </div>
-        <div class="column">
-          <div class="input-box">
-            <label>Especificación transfusiones:</label>
-            <input type="text" name="especificacionTransfusiones" value="<?php echo $especificacion_transfusiones; ?>">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Fila 5: Fracturas y Especificación -->
-      <div class="column">
-        <div class="col">
-          <div class="input-box">
-            <label>Fracturas:</label>
-            <input type="radio" name="fracturas" value="si" <?php if ($fracturas=="si") echo "checked"; ?>> Sí
-            <input type="radio" name="fracturas" value="no" <?php if ($fracturas=="no") echo "checked"; ?>> No
-          </div>
-        </div>
-        <div class="col">
-          <div class="input-box">
-            <label>Especificación fracturas:</label>
-            <input type="text" name="especificacionFracturas" value="<?php echo $especificacion_fracturas; ?>">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Fila 6: Traumatismos y Especificación -->
-      <div class="column">
-        <div class="col">
-          <div class="input-box">
-            <label>Traumatismos:</label>
-            <input type="radio" name="traumatismos" value="si" <?php if ($traumatismos=="si") echo "checked"; ?>> Sí
-            <input type="radio" name="traumatismos" value="no" <?php if ($traumatismos=="no") echo "checked"; ?>> No
-          </div>
-        </div>
-        <div class="column">
-          <div class="input-box">
-            <label>Especificación traumatismos:</label>
-            <input type="text" name="especificacionTraumatismos" value="<?php echo $especificacion_traumatismos; ?>">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Fila 7: Otra Enfermedad y Especificación -->
-      <div class="column">
-        <div class="col">
-          <div class="input-box">
-            <label>Otra enfermedad:</label>
-            <input type="radio" name="otraEnfermedad" value="si" <?php if ($otra_enfermedad=="si") echo "checked"; ?>> Sí
-            <input type="radio" name="otraEnfermedad" value="no" <?php if ($otra_enfermedad=="no") echo "checked"; ?>> No
-          </div>
-        </div>
-        <div class="col">
-          <div class="input-box">
-            <label>Especificación otra enfermedad:</label>
-            <input type="text" name="especificacionOtraEnfermedad" value="<?php echo $especificacion_otra_enfermedad; ?>">
-          </div>
-        </div>
-      </div>
-      
-      <!-- Fila 8: Botones para Actualizar o Salir -->
-      <div class="column">
+  <div class="container">
+    <form class="form" method="POST">
+      <h1>Actualizar Antecedentes Patológicos</h1>
+
+      <?php
+      function inputRadio($name, $valor) {
+          return "
+          <div class='col input-box'>
+            <label>" . ucfirst(str_replace('_', ' ', $name)) . ":</label>
+            <label><input type='radio' name='$name' value='si' " . ($valor=="si" ? "checked" : "") . ">Sí</label>
+            <label><input type='radio' name='$name' value='no' " . ($valor=="no" ? "checked" : "") . ">No</label>
+          </div>";
+      }
+
+      function inputText($name, $valor, $label=null) {
+          $etiqueta = $label ?? ucfirst(str_replace('_', ' ', $name));
+          return "<div class='col input-box'><label>$etiqueta:</label><input type='text' name='$name' value=\"$valor\"></div>";
+      }
+
+      function textareaBox($name, $valor, $label) {
+          return "<div class='col input-box'><label>$label:</label><textarea name='$name'>$valor</textarea></div>";
+      }
+
+      echo "<div class='column'>".
+            textareaBox("enfermedadesInfancia", $valores['enfermedades_infancia'], "Enfermedades en la infancia") .
+            textareaBox("secuelasInfancia", $valores['secuelas_infancia'], "Secuelas en la infancia") .
+          "</div>";
+
+      echo "<div class='column'>".
+            inputRadio("hospitalizacionesPrevias", $valores['hospitalizaciones_previas']) .
+            inputText("especificacionHospitalizaciones", $valores['especificacion_hospitalizaciones']) .
+          "</div>";
+
+      echo "<div class='column'>".
+            inputRadio("antecedentesQuirurgicos", $valores['antecedentes_quirurgicos']) .
+            inputText("especificacionQuirurgicos", $valores['especificacion_quirurgicos']) .
+          "</div>";
+
+      echo "<div class='column'>".
+            inputRadio("transfusionesPrevias", $valores['transfusiones_previas']) .
+            inputText("especificacionTransfusiones", $valores['especificacion_transfusiones']) .
+          "</div>";
+
+      echo "<div class='column'>".
+            inputRadio("fracturas", $valores['fracturas']) .
+            inputText("especificacionFracturas", $valores['especificacion_fracturas']) .
+          "</div>";
+
+      echo "<div class='column'>".
+            inputRadio("traumatismos", $valores['traumatismos']) .
+            inputText("especificacionTraumatismos", $valores['especificacion_traumatismos']) .
+          "</div>";
+
+      echo "<div class='column'>".
+            inputRadio("otraEnfermedad", $valores['otra_enfermedad']) .
+            inputText("especificacionOtraEnfermedad", $valores['especificacion_otra_enfermedad']) .
+          "</div>";
+      ?>
+
+      <div class="acciones">
         <button type="submit" name="action" value="actualizar">Actualizar</button>
         <button type="submit" name="action" value="Salir">Regresar</button>
       </div>
-      
     </form>
-  </section>
+  </div>
 </body>
 </html>

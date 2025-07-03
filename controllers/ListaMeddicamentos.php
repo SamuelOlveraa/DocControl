@@ -1,131 +1,156 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <title>Medicamentos en uso</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos adicionales */
-        body {
-            font-family: Arial, Helvetica, sans-serif;
+        /* Aquí se insertan todos los estilos modernos que compartiste */
+        /* -------- FUENTES Y RESET -------- */
+        * {
             margin: 0;
-            background: url(fondo.jpg);
-            background-size: cover;
-            background-attachment: fixed;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
-        .button-container {
+        body {
+            height: 100vh;
+            background: linear-gradient(-45deg, #e0f7fa, #f0f9ff, #e8f0fe, #f3f4f6);
+            background-size: 400% 400%;
+            animation: gradientBackground 18s ease infinite;
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            align-items: flex-start;
-            margin-top: 50px;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        @keyframes gradientBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background: #ffffff;
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .container header {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a2537;
+            text-align: center;
+            margin-bottom: 30px;
         }
 
         .medicamento {
-            background-color: #ffffff;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
             padding: 20px;
-            margin: 10px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease-in-out;
         }
 
-        h1 {
-            text-align: center;
-            color: #ffffff;
-            font-size: 40px;
-            margin-top: 50px;
+        .medicamento p {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: #1f2937;
         }
 
         .button {
-            display: inline-block;
-            background-color: #1a2537;
+            background: linear-gradient(to right, #1a2537, #3b82f6);
             color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 4px;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
             text-decoration: none;
-            transition: background-color 0.3s;
+            margin: 10px;
+            display: inline-block;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 6px 12px rgba(59, 130, 246, 0.25);
         }
 
         .button:hover {
-            background-color: #0c1522;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(to right, #3b82f6, #1a2537);
         }
 
-        p {
-            margin-bottom: 10px;
-        }
-
-        /* Nuevo estilo para centrar los botones y ubicarlos al final */
-        .container {
-            width: 100%;
+        .acciones {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            .container header {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-<h1 style="text-align: center;">Medicamentos en uso</h1>
-<div class="button-container">
-    <?php
-    // Establecer la conexión con la base de datos
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "clinica";
+    <div class="container">
+        <header>Medicamentos en uso</header>
+        <?php
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "clinica";
 
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
+        $conn = mysqli_connect($servername, $username, $password, $dbname);
 
-    if (!$conn) {
-        die("Conexión fallida: " . mysqli_connect_error());
-    }
+        if (!$conn) {
+            die("<p>Error de conexión: " . mysqli_connect_error() . "</p>");
+        }
 
-    session_start(); // Iniciar la sesión
+        session_start();
+        $curp = isset($_SESSION['curp']) ? $_SESSION['curp'] : '';
 
-    // Obtener el valor de la CURP de la sesión
-    $curp = isset($_SESSION['curp']) ? $_SESSION['curp'] : '';
+        if (!empty($curp)) {
+            $sql = "SELECT * FROM medicamentos WHERE paciente_curp = '$curp'";
+            $result = mysqli_query($conn, $sql);
 
-    // Consultar los medicamentos del paciente
-    if (!empty($curp)) {
-        $sql = "SELECT * FROM medicamentos WHERE paciente_curp = '$curp'";
-        $result = mysqli_query($conn, $sql);
+            if ($result && mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $medicamentoId = $row['id'];
+                    echo "<div class='medicamento'>";
+                    echo "<p><strong>Nombre:</strong> {$row['NombreMedicamento']}</p>";
+                    echo "<p><strong>Principio activo:</strong> {$row['NombreActivo']}</p>";
+                    echo "<p><strong>Presentación:</strong> {$row['Presentacion']}</p>";
+                    echo "<p><strong>Dosis:</strong> {$row['Dosis']}</p>";
+                    echo "<p><strong>Vía:</strong> {$row['Via']}</p>";
+                    echo "<p><strong>Última administración:</strong> {$row['FechaUlAdmin']} {$row['HoraUlAdmin']}</p>";
+                    echo "</div>";
+                }
 
-        if ($result && mysqli_num_rows($result) > 0) {
-            // Mostrar la lista de medicamentos
-            echo "<div class='medicamentos-container'>";
-            while ($row = mysqli_fetch_assoc($result)) {
-                $medicamentoId = $row['id'];
-                $nombreMedicamento = $row['NombreMedicamento'];
-                $nombreActivo = $row['NombreActivo'];
-                $presentacion = $row['Presentacion'];
-                $dosis = $row['Dosis'];
-                $via = $row['Via'];
-                $fechaUlAdmin = $row['FechaUlAdmin'];
-                $horaUlAdmin = $row['HoraUlAdmin'];
-
-                // Mostrar información del medicamento
-                echo "<div class='medicamento'>";
-                echo "<p><strong>Nombre:</strong> $nombreMedicamento</p>";
-                echo "<p><strong>Principio activo:</strong> $nombreActivo</p>";
-                echo "<p><strong>Presentación:</strong> $presentacion</p>";
-                echo "<p><strong>Dosis:</strong> $dosis</p>";
-                echo "<p><strong>Vía:</strong> $via</p>";
-                echo "<p><strong>Última administración:</strong> $fechaUlAdmin $horaUlAdmin</p>";
-                echo "</div>";
-            }
-            echo "</div>";
-
-            // Sección de botones (Editar y Regresar) centrada y al final del último contenedor
-            echo "<div class='container'>";
+                echo "<div class='acciones'>";
                 echo "<a class='button' href='/DocControl/controllers/MoMedicamentos.php?id=$medicamentoId'>Editar</a>";
                 echo "<a class='button' href='/DocControl/views/FormulariosEditables.html?id=$medicamentoId'>Regresar</a>";
-            echo "</div>";
-
+                echo "</div>";
+            } else {
+                echo "<p style='text-align:center;'>No se encontraron medicamentos para este paciente.</p>";
+            }
         } else {
-            echo "<p>No se encontraron medicamentos para este paciente.</p>";
+            echo "<p style='text-align:center;'>No se encontró el CURP en la sesión.</p>";
         }
-    } else {
-        echo "<p>No se encontró el CURP en la sesión.</p>";
-    }
 
-    mysqli_close($conn);
-    ?>
-</div>
+        mysqli_close($conn);
+        ?>
+    </div>
 </body>
 </html>
