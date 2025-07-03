@@ -5,34 +5,159 @@
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
     <script src="https://kit.fontawesome.com/7b3eecf960.js" crossorigin="anonymous"></script>
-    <!-- Ruta relativa para estilos, ajusta según tu estructura de carpetas -->
-    <link rel="stylesheet" href="/DocControl/assets/css/estilos.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
+    <style>
+        /* Copia aquí el CSS proporcionado en tu prompt */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body {
+          height: 100vh;
+          background: linear-gradient(-45deg, #e0f7fa, #f0f9ff, #e8f0fe, #f3f4f6);
+          background-size: 400% 400%;
+          animation: gradientBackground 18s ease infinite;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 40px 20px;
+        }
+        @keyframes gradientBackground {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .container {
+          background: #ffffff;
+          max-width: 700px;
+          width: 100%;
+          padding: 40px;
+          border-radius: 16px;
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+          transition: all 0.3s ease-in-out;
+        }
+        .container header {
+          font-size: 2rem;
+          font-weight: 700;
+          color: #1a2537;
+          text-align: center;
+          margin-bottom: 30px;
+          letter-spacing: 0.5px;
+        }
+        .form {
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+        }
+        .input-box label {
+          display: block;
+          font-weight: 600;
+          margin-bottom: 8px;
+          color: #2c3e50;
+          font-size: 0.95rem;
+        }
+        .input-box input {
+          width: 100%;
+          padding: 14px 18px;
+          border: 1px solid #cbd5e1;
+          border-radius: 10px;
+          background: #f9fafb;
+          font-size: 1rem;
+          color: #1f2937;
+          transition: all 0.3s ease;
+        }
+        .input-box input:focus {
+          border-color: #3b82f6;
+          background-color: #fff;
+          outline: none;
+        }
+        .invalid {
+          border: 2px solid #e63946 !important;
+        }
+        .button, .form button {
+          background: linear-gradient(to right, #1a2537, #3b82f6);
+          color: #ffffff;
+          padding: 15px 20px;
+          border: none;
+          border-radius: 12px;
+          font-size: 1.05rem;
+          font-weight: 600;
+          cursor: pointer;
+          box-shadow: 0 6px 12px rgba(59, 130, 246, 0.25);
+          transition: all 0.3s ease-in-out;
+        }
+        .button:hover, .form button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+          background: linear-gradient(to right, #3b82f6, #1a2537);
+        }
+        .link {
+          text-decoration: none;
+          color: #1a2537;
+          font-weight: 600;
+        }
+        .link:hover {
+          color: #3b82f6;
+          text-decoration: underline;
+        }
+        @media (max-width: 600px) {
+          .container { padding: 25px; }
+          .container header { font-size: 1.5rem; }
+        }
+        .container:hover {
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+        .input-box {
+          position: relative;
+        }
+        .input-box .icon {
+          position: absolute;
+          left: 16px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: #3b82f6;
+          font-size: 1.1rem;
+        }
+        .input-box input {
+          padding-left: 40px;
+        }
+    </style>
     <script>
         function validarLogin() {
             var usuario = document.getElementById("usuario").value;
             var contraseña = document.getElementById("contraseña").value;
             if (usuario === "admin" && contraseña === "admin") {
-                window.location.href = "index.html"; // Redirige a la página principal
+                window.location.href = "index.html";
             } else {
                 alert("Usuario o contraseña incorrectos");
+                document.getElementById("usuario").classList.add("invalid");
+                document.getElementById("contraseña").classList.add("invalid");
             }
+        }
+        window.onload = function() {
+            document.getElementById("usuario").addEventListener("input", function() {
+                this.classList.remove("invalid");
+            });
+            document.getElementById("contraseña").addEventListener("input", function() {
+                this.classList.remove("invalid");
+            });
         }
     </script>
 </head>
 <body>
-    <form class="formulario" onsubmit="event.preventDefault(); validarLogin();">
-        <h1>Login</h1>
-        <div class="contenedor">
-            <div class="input-contenedor">
+    <div class="container">
+        <header>Login</header>
+        <form class="form" onsubmit="event.preventDefault(); validarLogin();">
+            <div class="input-box">
+                <label for="usuario">Usuario</label>
                 <i class="fa-solid fa-envelope icon"></i>
-                <input type="text" placeholder="Usuario" id="usuario" required>
+                <input type="text" placeholder="Usuario" id="usuario" required autocomplete="username">
             </div>
-            <div class="input-contenedor">
+            <div class="input-box">
+                <label for="contraseña">Contraseña</label>
                 <i class="fa-solid fa-key icon"></i>
-                <input type="password" placeholder="Contraseña" id="contraseña" required>
+                <input type="password" placeholder="Contraseña" id="contraseña" required autocomplete="current-password">
             </div>
-            <input type="submit" value="Login" class="button">
-        </div>
-    </form>
+            <button type="submit" class="button">Login</button>
+        </form>
+    </div>
 </body>
 </html>
