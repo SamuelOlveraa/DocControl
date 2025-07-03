@@ -1,175 +1,235 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="/DocControl/assets/css/estilos.css" />
-    <title>Ficha Clínica</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Ficha Clínica</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(-45deg, #e0f7fa, #f0f9ff, #e8f0fe, #f3f4f6);
+      background-size: 400% 400%;
+      animation: gradientBackground 18s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    @keyframes gradientBackground {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      background: #ffffff;
+      max-width: 800px;
+      width: 100%;
+      height: 90vh; /* scroll interno */
+      overflow-y: auto; /* scroll vertical */
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+      scroll-behavior: smooth;
+    }
+
+    .container:hover {
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .container header {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1a2537;
+      text-align: center;
+      margin-bottom: 30px;
+      letter-spacing: 0.5px;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .input-box label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #2c3e50;
+      font-size: 0.95rem;
+    }
+
+    .input-box input,
+    .input-box select,
+    .input-box textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      background: #f9fafb;
+      font-size: 1rem;
+      color: #1f2937;
+      transition: all 0.3s ease;
+    }
+
+    .input-box input:focus,
+    .input-box select:focus,
+    .input-box textarea:focus {
+      border-color: #3b82f6;
+      background-color: #fff;
+      outline: none;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .invalid {
+      border: 2px solid #e63946 !important;
+    }
+
+    .button,
+    .form button {
+      background: linear-gradient(to right, #1a2537, #3b82f6);
+      color: #ffffff;
+      padding: 15px 20px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(59, 130, 246, 0.25);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .button:hover,
+    .form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+      background: linear-gradient(to right, #3b82f6, #1a2537);
+    }
+
+    details summary {
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: #1a2537;
+      margin-top: 20px;
+      background: #f1f5f9;
+      padding: 10px 15px;
+      border-radius: 10px;
+      transition: background 0.3s ease;
+    }
+
+    details summary:hover {
+      background: #e2e8f0;
+    }
+
+    details[open] .form {
+      margin-top: 15px;
+    }
+
+    .container::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .container::-webkit-scrollbar-thumb {
+      background-color: #a0aec0;
+      border-radius: 4px;
+    }
+
+    .container::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px;
+      }
+
+      .container header {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
-    <section class="container">
-        <form action="/DocControl/controllers/FichaClinica.php" method="POST" class="form" id="formulario">
+  <section class="container">
+    <header>Ficha Clínica</header>
+    <form action="/DocControl/controllers/FichaClinica.php" method="POST" class="form" id="formulario">
+      <div class="input-box">
+        <label for="fecha">Fecha:</label>
+        <input type="date" name="Fecha" id="fecha" required />
+      </div>
+      <div class="input-box">
+        <label for="MoIngreso">Motivo de ingreso:</label>
+        <input type="text" id="MoIngreso" name="MoIngreso" required />
+      </div>
+      <div class="input-box">
+        <label for="PriEvo">Principio y evolución del padecimiento actual:</label>
+        <input type="text" id="PriEvo" name="PriEvo" required />
+      </div>
 
-            <h1 style="text-align: center;">Visita</h1>
+      <details open>
+        <summary>Interrogatorio por Aparatos</summary>
+        <div class="form">
+          <div class="input-box"><label>Respiratorio / Cardiovascular:</label><input type="text" name="ResCardio" required /></div>
+          <div class="input-box"><label>Digestivo:</label><input type="text" name="Digestivo" required /></div>
+          <div class="input-box"><label>Endocrino:</label><input type="text" name="Endocrino" required /></div>
+          <div class="input-box"><label>Músculo-Esquelético:</label><input type="text" name="MusEs" required /></div>
+          <div class="input-box"><label>Genito-Urinario:</label><input type="text" name="GenUr" required /></div>
+          <div class="input-box"><label>Piel y Anexos:</label><input type="text" name="PielAnex" required /></div>
+          <div class="input-box"><label>Neurológico y Psiquiátrico:</label><input type="text" name="NeuPsi" required /></div>
+        </div>
+      </details>
 
-            <div class="input-box">
-                <label for="fecha">Fecha:</label>
-                <input type="date" name="Fecha" id="fecha" required>
-            </div>
+      <details>
+        <summary>Exploración Física</summary>
+        <div class="form">
+          <div class="input-box"><label>TA:</label><input type="text" name="ta" placeholder="mm/Hg" required /></div>
+          <div class="input-box"><label>Pulso:</label><input type="number" name="pulso" placeholder="min" min="30" max="200" required /></div>
+          <div class="input-box"><label>Temperatura:</label><input type="number" name="Temp" placeholder="°C" step="0.1" min="30" max="45" required /></div>
+          <div class="input-box"><label>Peso:</label><input type="text" name="Peso" placeholder="Kg" required /></div>
+          <div class="input-box"><label>Talla:</label><input type="text" name="Talla" placeholder="m" required /></div>
+          <div class="input-box"><label>Habitus Exterior:</label><input type="text" name="Habitus" required /></div>
+          <div class="input-box"><label>Cabeza y Cuello:</label><input type="text" name="CabCue" required /></div>
+          <div class="input-box"><label>Tórax:</label><input type="text" name="Torax" required /></div>
+          <div class="input-box"><label>Abdomen:</label><input type="text" name="Abdomen" required /></div>
+          <div class="input-box"><label>Genitales:</label><input type="text" name="Genitales" required /></div>
+          <div class="input-box"><label>Extremidades:</label><input type="text" name="Extremidades" required /></div>
+          <div class="input-box"><label>Sistema Nervioso:</label><input type="text" name="SistemNerv" required /></div>
+        </div>
+      </details>
 
-            <div class="input-box">
-                <label for="MoIngreso">Motivo de ingreso:</label>
-                <input type="text" placeholder="Ingrese el motivo de ingreso" id="MoIngreso" name="MoIngreso" required />
-            </div>
+      <details>
+        <summary>Diagnóstico y Plan</summary>
+        <div class="form">
+          <div class="input-box"><label>Probable Diagnóstico:</label><input type="text" name="ProDiagnostico" required /></div>
+          <div class="input-box"><label>Plan de Estudio:</label><input type="text" name="PlanEstudio" required /></div>
+          <div class="input-box"><label>Terapéutica Inicial:</label><input type="text" name="TerapeuticaInicial" required /></div>
+          <div class="input-box"><label>Observaciones:</label><input type="text" name="Observaciones" required /></div>
+          <div class="input-box"><label>Condición:</label><input type="text" name="Condicion" required /></div>
+          <div class="input-box"><label>Pronóstico:</label><input type="text" name="Pronostico" required /></div>
+        </div>
+      </details>
 
-            <div class="input-box">
-                <label for="PriEvo">Principio y Evolución del Padecimiento Actual:</label>
-                <input type="text" placeholder="Ingresa la información" id="PriEvo" name="PriEvo" required />
-            </div>
-
-            <fieldset>
-                <legend><h2>Interrogatorio por Aparatos y Sistemas</h2></legend>
-
-                <div class="input-box">
-                    <label for="ResCardio">Respiratorio / Cardiovascular:</label>
-                    <input type="text" id="ResCardio" name="ResCardio" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="Digestivo">Digestivo:</label>
-                    <input type="text" id="Digestivo" name="Digestivo" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="Endocrino">Endocrino:</label>
-                    <input type="text" id="Endocrino" name="Endocrino" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="MusEs">Musculo-Esquelético:</label>
-                    <input type="text" id="MusEs" name="MusEs" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="GenUr">Genito-Urinario:</label>
-                    <input type="text" id="GenUr" name="GenUr" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="PielAnex">Piel y Anexos:</label>
-                    <input type="text" id="PielAnex" name="PielAnex" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="NeuPsi">Neurológico y Psiquiátrico:</label>
-                    <input type="text" id="NeuPsi" name="NeuPsi" required />
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend><h2>Ficha Clínica</h2></legend>
-
-                <div class="input-box">
-                    <label for="ta">Tensión Arterial (TA):</label>
-                    <input type="text" id="ta" name="ta" placeholder="mm/Hg" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="pulso">Frecuencia Cardíaca / Pulso:</label>
-                    <input type="number" id="pulso" name="pulso" placeholder="min" min="30" max="200" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="Temp">Temperatura:</label>
-                    <input type="number" id="Temp" name="Temp" placeholder="°C" step="0.1" min="30" max="45" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="Peso">Peso:</label>
-                    <input type="text" id="Peso" name="Peso" placeholder="Kg" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="Talla">Talla:</label>
-                    <input type="text" id="Talla" name="Talla" placeholder="m" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="Habitus">Habitus Exterior:</label>
-                    <input type="text" id="Habitus" name="Habitus" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="CabCue">Cabeza y Cuello:</label>
-                    <input type="text" id="CabCue" name="CabCue" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="Torax">Tórax:</label>
-                    <input type="text" id="Torax" name="Torax" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="Abdomen">Abdomen:</label>
-                    <input type="text" id="Abdomen" name="Abdomen" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="Genitales">Genitales:</label>
-                    <input type="text" id="Genitales" name="Genitales" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="Extremidades">Extremidades:</label>
-                    <input type="text" id="Extremidades" name="Extremidades" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="SistemNerv">Sistema Nervioso:</label>
-                    <input type="text" id="SistemNerv" name="SistemNerv" required />
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend><h2>Análisis, Integración y Terapéutica</h2></legend>
-
-                <div class="input-box">
-                    <label for="ProDiagnostico">Probable Diagnóstico:</label>
-                    <input type="text" id="ProDiagnostico" name="ProDiagnostico" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="PlanEstudio">Plan de Estudio:</label>
-                    <input type="text" id="PlanEstudio" name="PlanEstudio" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="TerapeuticaInicial">Terapéutica Inicial:</label>
-                    <input type="text" id="TerapeuticaInicial" name="TerapeuticaInicial" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="Observaciones">Observaciones y/o Comentarios Finales:</label>
-                    <input type="text" id="Observaciones" name="Observaciones" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="Condicion">Condición:</label>
-                    <input type="text" id="Condicion" name="Condicion" required />
-                </div>
-
-                <div class="input-box">
-                    <label for="Pronostico">Pronóstico:</label>
-                    <input type="text" id="Pronostico" name="Pronostico" required />
-                </div>
-            </fieldset>
-
-            <div style="text-align: center; margin-top: 20px;">
-                <button type="submit" class="btn">Registrar</button>
-            </div>
-        </form>
-    </section>
+      <div style="text-align: center; margin-top: 20px;">
+        <button type="submit" class="button">Registrar</button>
+      </div>
+    </form>
+  </section>
 </body>
 </html>
