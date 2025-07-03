@@ -1,204 +1,145 @@
-/* -----------------------------------------------------------
-   Fuentes y Reglas Globales
------------------------------------------------------------ */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+/* Importar fuente moderna */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
-/* -----------------------------------------------------------
-   Fondo y Estructura Global
------------------------------------------------------------ */
+/* Fondo animado con gradiente fluido */
 body {
-  min-height: 100vh;
+  height: 100vh;
+  background: linear-gradient(-45deg, #1a2537, #3b82f6, #4f46e5, #60a5fa);
+  background-size: 400% 400%;
+  animation: gradientMotion 15s ease infinite;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  text-align: center;
-  background: url(/DocControl/assets/img/fondo.jpg);
-  background-size: cover;
-  background-attachment: fixed;
+  padding: 40px 20px;
 }
 
-/* -----------------------------------------------------------
-   Contenedor Principal
------------------------------------------------------------ */
-.container, .formulario {
-  background: #fff;
+/* Animación del fondo */
+@keyframes gradientMotion {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Tarjeta del formulario */
+.container {
+  background: #ffffff;
   max-width: 700px;
   width: 100%;
-  padding: 25px;
-  margin-top: 100px;
-  border-radius: 8px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
 }
 
-/* Para centrar en pantallas grandes */
-@media(min-width: 768px) {
-  .formulario {
-    margin: auto;
-    width: 500px;
-    border-radius: 2%;
-  }
-}
-
-/* -----------------------------------------------------------
-   Encabezado
------------------------------------------------------------ */
-.container header,
-h1 {
-  font-size: 1.5rem;
-  color: #1a2537;
+/* Encabezado */
+.container header {
+  font-size: 1.8rem;
   font-weight: 600;
+  color: #1a2537;
+  margin-bottom: 30px;
   text-align: center;
-  margin-bottom: 20px;
 }
 
-/* -----------------------------------------------------------
-   Formularios
------------------------------------------------------------ */
-.form, .formulario {
-  margin-top: 20px;
+/* Formulario */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.input-box,
-.input-contenedor,
-.input-contenedorMenu {
-  width: 100%;
-  margin-bottom: 15px;
-  border: 1px solid #aaa;
-}
-
+/* Inputs */
 .input-box label {
-  color: #333;
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: block;
+  color: #1f2937;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="number"],
-.select-box select {
-  font-size: 1rem;
+.input-box input,
+.input-box select,
+.input-box textarea {
   width: 100%;
-  padding: 10px 15px;
-  margin-top: 8px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  outline: none;
-  color: #707070;
-}
-
-input:focus {
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-}
-
-/* Invalid Input */
-.invalid {
-  border: 2px solid red;
-}
-
-/* Columnas en Formularios */
-.form .column {
-  display: flex;
-  column-gap: 15px;
-}
-
-@media screen and (max-width: 500px) {
-  .form .column {
-    flex-wrap: wrap;
-  }
-}
-
-/* -----------------------------------------------------------
-   Sección Género
------------------------------------------------------------ */
-.genero-box {
-  color: #333;
+  padding: 12px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #f9fafb;
   font-size: 1rem;
-  font-weight: 400;
-  margin-top: 20px;
+  transition: border-color 0.2s;
+  color: #1f2937;
 }
 
-.form :where(.genero-option, .genero) {
+.input-box input:focus,
+.input-box select:focus,
+.input-box textarea:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.invalid {
+  border: 2px solid #e63946 !important;
+}
+
+/* Género u opciones horizontales */
+.genero-box {
+  margin-top: 10px;
+}
+
+.genero {
   display: flex;
-  align-items: center;
+  gap: 15px;
   flex-wrap: wrap;
-  column-gap: 20px;
-  row-gap: 10px;
-}
-
-.form .genero {
-  column-gap: 15px;
-}
-
-.genero input {
-  accent-color: rgba(0, 0, 0, 0.1);
-  cursor: pointer;
 }
 
 .genero label {
-  color: #707070;
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+.genero input {
+  accent-color: #1a2537;
   cursor: pointer;
 }
 
-/* -----------------------------------------------------------
-   Botones
------------------------------------------------------------ */
+/* Botón principal */
 .button,
-.buttonMenu,
 .form button {
+  background-color: #1a2537;
+  color: white;
+  padding: 14px 20px;
   border: none;
-  border-radius: 30px;
-  background: #1a2537;
-  color: #fff;
+  border-radius: 10px;
   font-size: 1rem;
-  padding: 15px 20px;
-  width: 100%;
+  font-weight: 600;
   cursor: pointer;
-  margin-top: 30px;
-  transition: background 0.2s ease;
-}
-
-.buttonMenu {
-  width: 80%;
-  font-size: 20px;
-  padding: 10px 15px;
+  transition: background-color 0.3s ease;
 }
 
 .button:hover,
-.buttonMenu:hover,
 .form button:hover {
-  background: cadetblue;
+  background-color: #3b82f6;
 }
 
-/* -----------------------------------------------------------
-   Iconos y Utilidades
------------------------------------------------------------ */
-.icon,
-.iconMenu {
-  min-width: 70px;
-  text-align: center;
-  color: #999;
-}
-
-/* -----------------------------------------------------------
-   Texto y Enlaces
------------------------------------------------------------ */
-p {
-  text-align: center;
-}
-
-.link {
-  text-decoration: none;
-  color: #1a2537;
-  font-weight: 600;
-}
-
-.link:hover {
-  color: cadetblue;
+/* Responsive */
+@media (max-width: 600px) {
+  .container {
+    padding: 25px;
+  }
 }
