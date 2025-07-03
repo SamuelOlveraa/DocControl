@@ -4,14 +4,152 @@
     <meta charset="UTF-8">
     <title>Menú de Pacientes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/7b3eecf960.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/DocControl/assets/css/estilos.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: 'Inter', sans-serif;
+        }
+        body {
+          height: 100vh;
+          background: linear-gradient(-45deg, #e0f7fa, #f0f9ff, #e8f0fe, #f3f4f6);
+          background-size: 400% 400%;
+          animation: gradientBackground 18s ease infinite;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 40px 20px;
+        }
+        @keyframes gradientBackground {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .container {
+          background: #ffffff;
+          max-width: 700px;
+          width: 100%;
+          padding: 40px;
+          border-radius: 16px;
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+          transition: all 0.3s ease-in-out;
+        }
+        .container header {
+          font-size: 2rem;
+          font-weight: 700;
+          color: #1a2537;
+          text-align: center;
+          margin-bottom: 30px;
+          letter-spacing: 0.5px;
+        }
+        .form {
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+        }
+        .input-box label {
+          display: block;
+          font-weight: 600;
+          margin-bottom: 8px;
+          color: #2c3e50;
+          font-size: 0.95rem;
+        }
+        .input-box {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+        .input-box input {
+          width: 100%;
+          padding: 14px 18px 14px 44px;
+          border: 1px solid #cbd5e1;
+          border-radius: 10px;
+          background: #f9fafb;
+          font-size: 1rem;
+          color: #1f2937;
+          transition: all 0.3s ease;
+        }
+        .input-box input:focus {
+          border-color: #3b82f6;
+          background-color: #fff;
+          outline: none;
+        }
+        .input-icon {
+          position: relative;
+        }
+        .input-icon i {
+          position: absolute;
+          left: 14px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: #3b82f6;
+          font-size: 1.2rem;
+        }
+        .button,
+        .form button {
+          background: linear-gradient(to right, #1a2537, #3b82f6);
+          color: #ffffff;
+          padding: 15px 20px;
+          border: none;
+          border-radius: 12px;
+          font-size: 1.05rem;
+          font-weight: 600;
+          cursor: pointer;
+          box-shadow: 0 6px 12px rgba(59, 130, 246, 0.25);
+          transition: all 0.3s ease-in-out;
+        }
+        .button:hover,
+        .form button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+          background: linear-gradient(to right, #3b82f6, #1a2537);
+        }
+        .actions {
+          display: flex;
+          gap: 16px;
+          flex-wrap: wrap;
+        }
+        .actions .button {
+          flex: 1 1 150px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+        }
+        .actions .button i {
+          font-size: 1.2rem;
+        }
+        .form p {
+          text-align: center;
+          color: #4b5563;
+          font-size: 1rem;
+          margin-top: 10px;
+        }
+        @media (max-width: 600px) {
+          .container {
+            padding: 25px;
+          }
+          .container header {
+            font-size: 1.5rem;
+          }
+        }
+        .container:hover {
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+    </style>
     <script>
         function redireccionarBuscar() {
             const curp = document.getElementById("curp").value.trim();
             if (curp) {
                 window.location.href = "/DocControl/controllers/Buscar.php?curp=" + encodeURIComponent(curp);
             } else {
+                document.getElementById("curp").classList.add("invalid");
                 alert("Debes ingresar el CURP antes de realizar la búsqueda.");
             }
         }
@@ -21,23 +159,32 @@
         function evitarEnvioAutomatico(event) {
             event.preventDefault();
         }
+        window.onload = function() {
+            document.getElementById("curp").addEventListener("input", function() {
+                this.classList.remove("invalid");
+            });
+        }
     </script>
 </head>
 <body>
-    <form class="formulario" onsubmit="evitarEnvioAutomatico(event);">
-        <h1>Menú</h1>
-        <div class="contenedor">
-            <div class="input-contenedor">
-                <i class="fa-solid fa-magnifying-glass fa-2xl icon"></i>
-                <input type="text" placeholder="CURP" id="curp">
+    <div class="container">
+        <header>Menú de Pacientes</header>
+        <form class="form" onsubmit="evitarEnvioAutomatico(event);">
+            <div class="input-box input-icon">
+                <label for="curp">CURP del paciente</label>
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Ejemplo: GODE561231HDFRRN09" id="curp" autocomplete="off">
             </div>
-            <input type="submit" value="Buscar" class="button" onclick="redireccionarBuscar();">
-            <div class="input-contenedorMenu">
-                <i class="fa-solid fa-user-plus fa-2xl iconMenu"></i>
-                <button type="button" class="buttonMenu" onclick="redireccionarRegistrar();">Registrar</button>
+            <div class="actions">
+                <button type="submit" class="button" onclick="redireccionarBuscar();">
+                    <i class="fa-solid fa-magnifying-glass"></i> Buscar
+                </button>
+                <button type="button" class="button" onclick="redireccionarRegistrar();">
+                    <i class="fa-solid fa-user-plus"></i> Registrar
+                </button>
             </div>
             <p>¿Qué deseas hacer con el paciente?</p>
-        </div>
-    </form>
+        </form>
+    </div>
 </body>
 </html>

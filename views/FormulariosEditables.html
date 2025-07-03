@@ -1,67 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Establece la codificación de caracteres a UTF-8 para asegurar la correcta visualización de caracteres especiales -->
-  <meta charset="UTF-8" />
-  <!-- Configura el viewport para que la página se adapte a dispositivos móviles 
-       (establece ancho, escala mínima y máxima, y desactiva el zoom del usuario) -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <!-- Indica a Internet Explorer que utilice la versión más reciente de su motor de renderizado -->
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <!-- Define el título de la página que se muestra en la pestaña del navegador -->
-  <title>Modificación Paciente</title>
-  <!-- Vincula la hoja de estilos externa para aplicar estilos al formulario y al resto del contenido -->
-  <link rel="stylesheet" href="/DocControl/assets/css/estilos.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Modificación Paciente</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            height: 100vh;
+            background: linear-gradient(-45deg, #e0f7fa, #f0f9ff, #e8f0fe, #f3f4f6);
+            background-size: 400% 400%;
+            animation: gradientBackground 18s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        @keyframes gradientBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .container {
+            background: #ffffff;
+            max-width: 700px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+        .container header {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a2537;
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: 0.5px;
+        }
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .form-row {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            min-width: 220px;
+            flex: 1;
+        }
+        .form button {
+            background: linear-gradient(to right, #1a2537, #3b82f6);
+            color: #ffffff;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(59, 130, 246, 0.25);
+            transition: all 0.3s ease-in-out;
+            margin-bottom: 0;
+        }
+        .form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(to right, #3b82f6, #1a2537);
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+            .container header {
+                font-size: 1.5rem;
+            }
+            .form-row {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .column {
+                min-width: unset;
+            }
+        }
+        .container:hover {
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+    </style>
 </head>
 <body data-genero="<?php echo $genero; ?>">
-  <!-- 
-    La etiqueta <body> incluye un atributo personalizado "data-genero" que 
-    se llena dinámicamente con el valor de la variable PHP $genero. 
-    Esto se puede usar en JavaScript o CSS para aplicar estilos o lógica condicional
-    según el género del paciente.
-  -->
-  <section class="container">
-    <!-- Título principal de la sección, centrado -->
-    <h1 style="text-align: center;">Información del Paciente</h1>
-    <!-- Formulario de navegación; en este caso, se usa para acceder a diferentes secciones 
-         relacionadas con la modificación de la información del paciente.
-         El formulario no tiene un atributo "action" definido porque se usa para la navegación
-         a través de botones de tipo "button" que redirigen mediante JavaScript.
-    -->
-    <form class="form" id="formulario">
-      <!-- Primera columna de botones -->
-      <div class="column">
-        <!-- Botón para acceder a la sección de "Antecedentes HeredoFamiliares" -->
-        <button type="button" onclick="window.location.href='/DocControl/controllers/MoHeredo.php'">
-          Antecedentes HeredoFamiliares
-        </button>
-        <!-- Botón para acceder a la sección de "Antecedentes Patologicos" -->
-        <button type="button" onclick="window.location.href='/DocControl/controllers/MoPatologicos.php'">
-          Antecedentes Patologicos
-        </button>
-      </div>
-      <!-- Segunda columna de botones -->
-      <div class="column">
-        <!-- Botón para acceder a la sección de "Antecedentes No Patologicos" -->
-        <button type="button" onclick="window.location.href='/DocControl/controllers/MoNoPatologicos.php'">
-          Antecedentes No Patologicos
-        </button>
-        <!-- Botón para acceder a la sección de "Antecedentes Gineco Obstetricos"
-             Se asigna un id "btnGineco" (posiblemente para usarlo en JavaScript o CSS)
-        -->
-        <button type="button" id="btnGineco" onclick="window.location.href='/DocControl/controllers/MoAntecedentesGinecoObstetricos.php'">
-          Antecedentes Gineco Obstetricos
-        </button>
-      </div>
-      <!-- Botón para acceder a la sección de "Medicamentos En Uso" -->
-      <button type="button" onclick="window.location.href='/DocControl/controllers/ListaMeddicamentos.php'">
-         Medicamentos En Uso
-      </button>
-      <!-- Botón para regresar al "Menu Principal" (usualmente finaliza la sesión o regresa al dashboard) -->
-      <button type="button" onclick="window.location.href='/DocControl/public/logout.php'">
-        Menu
-      </button>
-    </form>
-  </section>
+    <section class="container">
+        <header>Información del Paciente</header>
+        <form class="form" id="formulario">
+            <div class="form-row">
+                <div class="column">
+                    <button type="button" onclick="window.location.href='/DocControl/controllers/MoHeredo.php'">
+                        Antecedentes HeredoFamiliares
+                    </button>
+                    <button type="button" onclick="window.location.href='/DocControl/controllers/MoPatologicos.php'">
+                        Antecedentes Patologicos
+                    </button>
+                </div>
+                <div class="column">
+                    <button type="button" onclick="window.location.href='/DocControl/controllers/MoNoPatologicos.php'">
+                        Antecedentes No Patologicos
+                    </button>
+                    <button type="button" id="btnGineco" onclick="window.location.href='/DocControl/controllers/MoAntecedentesGinecoObstetricos.php'">
+                        Antecedentes Gineco Obstetricos
+                    </button>
+                </div>
+            </div>
+            <button type="button" onclick="window.location.href='/DocControl/controllers/ListaMeddicamentos.php'">
+                Medicamentos En Uso
+            </button>
+            <button type="button" onclick="window.location.href='/DocControl/public/logout.php'">
+                Menu
+            </button>
+        </form>
+    </section>
 </body>
 </html>
