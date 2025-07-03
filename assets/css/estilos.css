@@ -1,5 +1,7 @@
-/* Importar fuente moderna */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+/* -----------------------------------------------------------
+   FUENTES Y RESET
+----------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
 * {
   margin: 0;
@@ -8,104 +10,111 @@
   font-family: 'Inter', sans-serif;
 }
 
-/* Fondo animado con gradiente fluido */
+/* -----------------------------------------------------------
+   FONDO ANIMADO MODERNO
+----------------------------------------------------------- */
 body {
   height: 100vh;
-  background: linear-gradient(-45deg, #1a2537, #3b82f6, #4f46e5, #60a5fa);
+  background: linear-gradient(-45deg, #e0f7fa, #f0f9ff, #e8f0fe, #f3f4f6);
   background-size: 400% 400%;
-  animation: gradientMotion 15s ease infinite;
+  animation: gradientBackground 18s ease infinite;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 40px 20px;
 }
 
-/* Animación del fondo */
-@keyframes gradientMotion {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+@keyframes gradientBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* Tarjeta del formulario */
+/* -----------------------------------------------------------
+   CONTENEDOR CENTRAL
+----------------------------------------------------------- */
 .container {
   background: #ffffff;
   max-width: 700px;
   width: 100%;
   padding: 40px;
   border-radius: 16px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
 }
 
-/* Encabezado */
+/* -----------------------------------------------------------
+   ENCABEZADO DE SECCIÓN
+----------------------------------------------------------- */
 .container header {
-  font-size: 1.8rem;
-  font-weight: 600;
+  font-size: 2rem;
+  font-weight: 700;
   color: #1a2537;
-  margin-bottom: 30px;
   text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: 0.5px;
 }
 
-/* Formulario */
+/* -----------------------------------------------------------
+   FORMULARIO
+----------------------------------------------------------- */
 .form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
-/* Inputs */
 .input-box label {
-  font-weight: 500;
-  margin-bottom: 6px;
   display: block;
-  color: #1f2937;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #2c3e50;
+  font-size: 0.95rem;
 }
 
 .input-box input,
 .input-box select,
 .input-box textarea {
   width: 100%;
-  padding: 12px 16px;
+  padding: 14px 18px;
   border: 1px solid #cbd5e1;
-  border-radius: 8px;
+  border-radius: 10px;
   background: #f9fafb;
   font-size: 1rem;
-  transition: border-color 0.2s;
   color: #1f2937;
+  transition: all 0.3s ease;
 }
 
 .input-box input:focus,
 .input-box select:focus,
 .input-box textarea:focus {
   border-color: #3b82f6;
+  background-color: #fff;
   outline: none;
 }
 
 textarea {
-  min-height: 100px;
   resize: vertical;
+  min-height: 100px;
 }
 
+/* Campo inválido */
 .invalid {
   border: 2px solid #e63946 !important;
 }
 
-/* Género u opciones horizontales */
+/* -----------------------------------------------------------
+   RADIO / CHECKBOX (por ejemplo: género)
+----------------------------------------------------------- */
 .genero-box {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .genero {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
+  margin-top: 8px;
 }
 
 .genero label {
@@ -114,32 +123,63 @@ textarea {
 }
 
 .genero input {
-  accent-color: #1a2537;
+  accent-color: #3b82f6;
   cursor: pointer;
 }
 
-/* Botón principal */
+/* -----------------------------------------------------------
+   BOTÓN MODERNO
+----------------------------------------------------------- */
 .button,
 .form button {
-  background-color: #1a2537;
-  color: white;
-  padding: 14px 20px;
+  background: linear-gradient(to right, #1a2537, #3b82f6);
+  color: #ffffff;
+  padding: 15px 20px;
   border: none;
-  border-radius: 10px;
-  font-size: 1rem;
+  border-radius: 12px;
+  font-size: 1.05rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  box-shadow: 0 6px 12px rgba(59, 130, 246, 0.25);
+  transition: all 0.3s ease-in-out;
 }
 
 .button:hover,
 .form button:hover {
-  background-color: #3b82f6;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(to right, #3b82f6, #1a2537);
 }
 
-/* Responsive */
+/* -----------------------------------------------------------
+   ENLACES
+----------------------------------------------------------- */
+.link {
+  text-decoration: none;
+  color: #1a2537;
+  font-weight: 600;
+}
+
+.link:hover {
+  color: #3b82f6;
+  text-decoration: underline;
+}
+
+/* -----------------------------------------------------------
+   RESPONSIVE
+----------------------------------------------------------- */
 @media (max-width: 600px) {
   .container {
     padding: 25px;
   }
+
+  .container header {
+    font-size: 1.5rem;
+  }
 }
+/* -----------------------------------------------------------
+   ESTILOS ADICIONALES
+----------------------------------------------------------- */
+.container:hover {
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+}         
