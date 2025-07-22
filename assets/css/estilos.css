@@ -41,6 +41,21 @@ body {
   border-radius: 16px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
+
+  /* Scroll interno */
+  max-height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+/* Scroll personalizado en WebKit (Chrome, Edge, Safari) */
+.container::-webkit-scrollbar {
+  width: 8px;
+}
+.container::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 4px;
 }
 
 /* -----------------------------------------------------------
@@ -177,6 +192,7 @@ textarea {
     font-size: 1.5rem;
   }
 }
+
 /* -----------------------------------------------------------
    ESTILOS ADICIONALES
 ----------------------------------------------------------- */
@@ -242,7 +258,6 @@ details .card {
   min-width: 160px;
 }
 
-
 textarea[readonly] {
   background-color: #f9fafb;
   border: 1px solid #cbd5e1;
@@ -254,4 +269,3 @@ textarea[readonly] {
   overflow-y: auto;
   color: #1f2937;
 }
-
